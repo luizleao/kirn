@@ -1,0 +1,1 @@
+<td><a class="btn btn-small btn-flat tooltipped" href="frm%%CLASSE%%.php?%%ID_PK%%=<?=$o%%CLASSE%%->%%PK%%;?>" data-position="top" data-tooltip="Editar %%CLASSE%%"><i class="material-icons">mode_edit</i></a></td>

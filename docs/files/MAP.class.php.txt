@@ -1,0 +1,23 @@
+ <?php
+abstract class MAP {
+    
+    static function dataToSelect($aData) {
+        foreach($aData as $tabela => $aCampo){
+            foreach($aCampo as $sCampo){
+                $aux[] = "$tabela.$sCampo as $tabela"."_$sCampo";
+            }
+        }
+        
+        return implode(",\n", $aux);
+    }
+    
+    static function filterLike($aData, $valor) {
+        foreach($aData as $tabela => $aCampo){
+            foreach($aCampo as $sCampo){
+                $aux[] = "$tabela.$sCampo like '$valor'";
+            }
+        }
+        
+        return implode("\nor ", $aux);
+    }
+}

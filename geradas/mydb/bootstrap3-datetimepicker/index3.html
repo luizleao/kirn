@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="pt">
+<head>
+	<title>Bootstrap Datepicker</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="../css/bootstrap.css" />
+	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
+	
+	<!-- CSS Custom -->
+	<link rel="stylesheet" href="../css/navbar.css" />
+	<link rel="stylesheet" href="../css/sticky-footer-navbar.css" />
+</head>
+<body>
+	<main class="container">
+		<div class="well">
+			<div class="form-group">
+                <div class='input-group date' id='datetimepicker2'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+	</main>
+	<script src="../js/jquery-2.1.1.min.js"></script>
+	<script src="../js/bootstrap.js"></script>
+	<script src="../js/jquery.mask.js"></script>
+	<script src="../js/comum.js"></script>
+	<script src="../js/crud.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
+	<script src="js/bootstrap-datetimepicker.js"></script>
+	
+	<script type="text/javascript">
+	$(function() {
+		$('#datetimepicker2').datetimepicker({
+			locale: 'pt-br'
+		});
+	});
+	</script>
+</body>
+</html>

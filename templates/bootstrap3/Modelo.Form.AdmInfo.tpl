@@ -1,0 +1,1 @@
+<td><a id="btnDetalhes" data-id="<?=$o%%CLASSE%%->%%PK%%;?>" class="btn btn-info btn-xs" href="#" title="Detalhes %%CLASSE%%"><i class="glyphicon glyphicon-search"></i></a></td>

@@ -1,0 +1,1 @@
+<td><a id="btnDetalhes" class="btn btn-info btn-small" href="#" title="Detalhes %%CLASSE%%" data-id="<?=$o%%CLASSE%%->%%PK%%;?>"><i class="icon-white icon-info-sign"></i></a></td>

@@ -1,0 +1,4 @@
+RewriteEngine on
+
+#RewriteCond %{SCRIPT_NAME} ^.*index.php$ 
+RewriteRule ^.*$ index.php [L,NC]

@@ -1,0 +1,1 @@
+<td><a id="btnExcluir" data-id="%%ID_PK%%" data-id-valor="<?=$o%%CLASSE%%->%%PK%%;?>" class="btn btn-small btn-flat tooltipped" href="#" data-position="top" data-tooltip="Excluir %%CLASSE%%"><i class="material-icons">delete</i></a></td>

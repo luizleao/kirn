@@ -1,0 +1,1 @@
+<td><a class="btn btn-success btn-sm" href="frm%%CLASSE%%.php?%%ID_PK%%=<?=$o%%CLASSE%%->%%PK%%;?>" title="Editar"><i class="icon ion-ios-create"></i></a></td>
