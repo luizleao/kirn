@@ -72,18 +72,18 @@ class Controller{
         $oConexao = $this->conexao($sgbd, $host, $usuario, $senha, $bd);
         
         if($oConexao){
-            $oXML = simplexml_load_string("<?xml version=\"1.0\" encoding=\"UTF-8\"?> <DATABASE NOME=\"$bd\" SGBD=\"$sgbd\" HOST=\"$host\" USER=\"$usuario\" SENHA=\"$senha\"></DATABASE>");
+            $oXML = simplexml_load_string("<?xml version=\"1.0\" encoding=\"UTF-8\"?> <database name=\"$bd\" dbms=\"$sgbd\" host=\"$host\" user=\"$usuario\" passwd=\"$senha\"></database>");
             $aTabela = $oConexao->getAllTabelas();
             //print"<pre>"; print_r($aTabela); print"</pre>"; exit;
             
             foreach($aTabela as $sTabela){
                 //print"<pre>"; print_r($sTabela); print"</pre>"; exit;
-                $oTabela = $oXML->addChild("TABELA");
-                $oTabela->addAttribute("NOME", $sTabela[0]);
+                $oTabela = $oXML->addChild("table");
+                $oTabela->addAttribute("name", $sTabela[0]);
                 
                 switch($sgbd){
-                    case "mysql":     $oTabela->addAttribute("SCHEMA", ""); break;
-                    case "sqlserver": $oTabela->addAttribute("SCHEMA", $sTabela[1]); break;
+                    case "mysql":     $oTabela->addAttribute("schema", ""); break;
+                    case "sqlserver": $oTabela->addAttribute("schema", $sTabela[1]); break;
                 }
                 
                 $aColuna = $oConexao->getAllColunasTabela($sTabela[0]);
@@ -101,35 +101,35 @@ class Controller{
                         }
                     }
                     
-                    $oCampo = $oTabela->addChild("CAMPO");
-                    $oCampo->addAttribute("NOME", $sColuna[0]);
-                    $oCampo->addAttribute("TIPO", $sColuna[1]);
-                    $oCampo->addAttribute("NULO", $sColuna[2]);
-                    $oCampo->addAttribute("CHAVE", (($sColuna[3] == 'PRI') ? 1 : 0));
-                    $oCampo->addAttribute("AI", ($sColuna[5] == 'auto_increment') ? "1" : "0");
+                    $oCampo = $oTabela->addChild("column");
+                    $oCampo->addAttribute("name", $sColuna[0]);
+                    $oCampo->addAttribute("type", $sColuna[1]);
+                    $oCampo->addAttribute("null", $sColuna[2]);
+                    $oCampo->addAttribute("pk", (($sColuna[3] == 'PRI') ? "true" : "false"));
+                    $oCampo->addAttribute("ai", ($sColuna[5] == 'auto_increment') ? "true" : "false");
                     
                     $oFK = $oConexao->dadosForeignKeyColuna($bd, $sTabela[0], $sColuna[0]);
                     
                     if($oFK[0] != ''){
-                        $oCampo->addAttribute("FKTABELA", $oFK[0]);
-                        $oCampo->addAttribute("FKCAMPO",  $oFK[1]);
+                        $oCampo->addAttribute("fkTable", $oFK[0]);
+                        $oCampo->addAttribute("fkColumn",  $oFK[1]);
                     } else {
-                        $oCampo->addAttribute("FKTABELA", "");
-                        $oCampo->addAttribute("FKCAMPO",  "");
+                        $oCampo->addAttribute("fkTable", "");
+                        $oCampo->addAttribute("fkColumn",  "");
                     }
                 }
                 
                 //print "Tabela: {$reg[0]}\n qtd_pk_com_incremento: $qtd_pk_com_incremento \n qtd_pk_sem_incremento: $qtd_pk_sem_incremento\n\n";
                 // ========== Verificar tipo da tabela ============
                 if($qtd_pk_com_incremento == 1){
-                    $oTabela->addAttribute("TIPO_TABELA", 'NORMAL');
+                    $oTabela->addAttribute("type", 'NORMAL');
                 } else {
                     if($qtd_pk_sem_incremento == 2){
-                        $oTabela->addAttribute("TIPO_TABELA", 'N:M');
+                        $oTabela->addAttribute("type", 'N:M');
                     } elseif($qtd_pk_sem_incremento == 1) {
-                        $oTabela->addAttribute("TIPO_TABELA", '1:1');
+                        $oTabela->addAttribute("type", '1:1');
                     } else {
-                        $oTabela->addAttribute("TIPO_TABELA", 'NORMAL');
+                        $oTabela->addAttribute("type", 'NORMAL');
                     }
                 }
             }

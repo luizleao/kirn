@@ -1,12 +1,12 @@
 <?php
 require_once("classes/autoload.php");
-$oControle = new Controle();
+$oController = new Controller();
 // ================= Edicao do Usuario ========================= 
-$oUsuario = $oControle->getUsuario($_SESSION['usuarioAtual']->idUsuario);
+$oUsuario = $oController->getUsuario($_SESSION['usuarioAtual']->idUsuario);
 
 if($_POST){
     //Util::trace($_REQUEST);exit;
-    print ($oControle->alterarSenha($oUsuario, $_REQUEST['senhaAtual'], $_REQUEST['novaSenha1'], $_REQUEST['novaSenha2'])) ? "" : $oControle->msg; exit;
+    print ($oController->alterarSenha($oUsuario, $_REQUEST['senhaAtual'], $_REQUEST['novaSenha1'], $_REQUEST['novaSenha2'])) ? "" : $oController->msg; exit;
 }
 
 ?>
@@ -27,8 +27,8 @@ if($_POST){
             <li class="active">Alterar Senha</li>
         </ol>
 <?php 
-if($oControle->msg != "")
-    $oControle->componenteMsg($oControle->msg, "erro");
+if($oController->msg != "")
+    $oController->componenteMsg($oController->msg, "erro");
 ?>
         <form role="form" onsubmit="return false;">
              <div class="row">

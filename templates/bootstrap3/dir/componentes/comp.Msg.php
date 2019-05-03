@@ -1,7 +1,7 @@
 <?php
 switch($tipo){
     case "erro":
-        $tipo = "alert-error";
+        $tipo = "alert-danger";
         $tipo_ico = "error";
         break;
     case "sucesso":
