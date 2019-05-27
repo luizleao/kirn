@@ -1,7 +1,7 @@
 <?php
 #namespace classes;
 /**
- * Class ArquivoXML | classes/Class.ArquivoXML.php
+ * Class ArquivoXML | classes/ArquivoXML.class.php
  *
  * @package     classes
  * @author      Luiz Leão <luizleao@gmail.com>

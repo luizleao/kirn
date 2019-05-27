@@ -4,7 +4,7 @@
 <?php
 foreach($a%%CLASSE_FK%% as $o%%CLASSE_FK%%){
 ?>
-    <option value="<?=$o%%CLASSE_FK%%->%%CAMPO%%?>"%%EDIT_VALUE%%><?=$o%%CLASSE_FK%%->%%LABEL_FK%%?></option>
+    <option value="<?=$o%%CLASSE_FK%%->%%CAMPO_FK%%?>"%%EDIT_VALUE%%><?=$o%%CLASSE_FK%%->%%LABEL_FK%%?></option>
 <?php
 }
 ?>

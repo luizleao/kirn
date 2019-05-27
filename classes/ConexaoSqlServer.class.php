@@ -1,6 +1,6 @@
 <?php
 /**
- * Class ConexaoSqlServer | classes/Class.Conexao.SqlServer.php
+ * Class ConexaoSqlServer | classes/ConexaoSqlServer.class.php
  *
  * @package     classes
  * @author      Luiz Leão <luizleao@gmail.com>

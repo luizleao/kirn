@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Form | classes/class.Form.php
+ * Class Form | classes/Form.class.php
  *
  * @package     classes
  * @author      Luiz Leão <luizleao@gmail.com>
@@ -205,6 +205,7 @@ class Form {
         $retorno = Util::getConteudoTemplate($gui.'/Modelo.Form.Select.tpl');
             
         $retorno = str_replace('%%CLASSE_FK%%',  $classeFK,  $retorno);
+        $retorno = str_replace('%%CAMPO_FK%%',   $campoFK,   $retorno);
         $retorno = str_replace('%%CAMPO%%',      $campo,     $retorno);
         $retorno = str_replace('%%EDIT_VALUE%%', $editValue, $retorno);
         $retorno = str_replace('%%LABEL_FK%%',   $labelFK,   $retorno);

@@ -31,8 +31,9 @@ switch ($_REQUEST['acao']) {
 	<?php include_once("includes/menu.php");?>
 	<?php include_once("includes/loading.php");?>
 	<main class="light">
-		<blockquote class="border">Framework Container</blockquote>
+		
 		<form onsubmit="return false;">
+		
 			<div class="row">
 				<div class="col s6">
 					<div class="row">

@@ -268,8 +268,9 @@ class Controller{
             
             //Util::trace($oGeracao);
             
-            $msg = "Log de Geração de Artefatos - Projeto: <strong>$xml</strong>: <br />";
-            $msg .= "Framework Front-End: <strong>$gui</strong>: <br /><hr /><pre>";
+            $msg = "Projeto: <strong>$xml</strong>: <br />";
+            $msg .= "Framework Front-End: <strong>$gui</strong>: <br />";
+            $msg .= "Log de Geração de Artefatos<hr /><pre>";
             $msg .= str_pad("Pastas do template ",50,".").                   ((!Util::copydir("templates/$gui/dir/", "geradas/$xml/")) ? "Falha" : "Ok")."\n";
             $msg .= str_pad("Pacote comum ",50,".").                         ((!Util::copydir("templates/comum/",   "geradas/$xml/"))  ? "Falha" : "Ok")."\n";
             $msg .= str_pad("Geracao de Classes Model ",50,".").             ((!$oGeracao->geraClassesBasicas())                       ? "Falha" : "Ok")."\n";
@@ -282,8 +283,22 @@ class Controller{
             $msg .= str_pad("Geracao de Interfaces ",50,".").                ((!$oGeracao->geraInterface())                            ? "Falha" : "Ok")."\n";
             
             if(!$moduloSeguranca){
-                $msg .= str_pad("Geracao Menu Estático ",51,".").            ((!$oGeracao->geraMenuEstatico())                         ? "Falha" : "Ok")."</pre>";
+                $msg .= str_pad("Geracao Menu Estático ",51,".").            ((!$oGeracao->geraMenuEstatico())                         ? "Falha" : "Ok")."\n";
             }
+            
+            $settings = $this->getSettings();
+            $valorPF = $settings['settings']['valorPf'];
+            $prodEquipe = $settings['settings']['prodEquipe'];
+            
+            $totalPF = Project::getTotalPFProject(dirname(dirname(__FILE__))."/xml/$xml.xml");
+            $msg .= "</pre>Relatório de Indicadores<hr /><pre>";
+            $msg .= str_pad("Total de linhas de codigo geradas",50,".").      Project::getTotalLineProject("geradas/$xml/")."\n";
+            $msg .= str_pad("Tamanho do Software Gerado (PF)",50,".").        $totalPF."\n";
+            $msg .= str_pad("Produtividade da Equipe (PF/Dia)",50,".").       "$prodEquipe\n";
+            $msg .= str_pad("Valor do PF (R$)",50,".").                       "$valorPF\n";
+            $msg .= str_pad("Valor Estimado do Projeto Gerado (R$)",50,".").  Util::formataMoeda($totalPF*$valorPF)."\n";
+            $msg .= str_pad("Prazo Estimado de Entrega (Dias Uteis)",50,".").  (int)round($totalPF/8)."</pre>";
+            
             return $msg;
         } catch (Exception $e){
             return "Erro na operação";
@@ -382,5 +397,14 @@ class Controller{
             $this->msg = $e->getMessage();
             return false;
         }
+    }
+    
+    /**
+     * Retorna os dados de configuração da ferramenta
+     * 
+     * @return array
+     */
+    public function getSettings(){
+        return parse_ini_file(dirname(__FILE__) . "/settings.ini", true);
     }
 }

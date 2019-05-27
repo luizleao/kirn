@@ -1,6 +1,6 @@
 <?php
 /**
- * Class ConexaoMySql | classes/Class.Conexao.MySql.php
+ * Class ConexaoMySql | classes/ConexaoMySql.class.php
  *
  * @package     classes
  * @author      Luiz Leão <luizleao@gmail.com>

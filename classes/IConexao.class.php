@@ -1,6 +1,6 @@
 <?php
 /**
- * Class IConexao | classes/Class.IConexao.php
+ * Class IConexao | classes/IConexao.class.php
  *
  * @package     classes
  * @author      Luiz Leão <luizleao@gmail.com>

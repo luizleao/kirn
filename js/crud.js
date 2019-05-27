@@ -4,11 +4,13 @@ $(document).ready(function(){
     var dadosSqlServer = {host:"172.16.107.88", login:"sa", senha:"cgti*2013"};    
     var dadosPostgre   = {host:"localhost", login:"postgres", senha:"postgres"};
     
-    var tempoTimeout  = 1000000;
-    
     var modalExcluir  = M.Modal.getInstance($('#modalExcluir'));
 	var modalResposta = M.Modal.getInstance($('#modalResposta'));
-	var database 	  = M.FormSelect.getInstance($('#database'));
+	var modalUrl 	  = M.Modal.getInstance($('#modalUrl'));
+	
+	if($('#database').length)
+		var database 	  = M.FormSelect.getInstance($('#database'));
+    var tempoTimeout  = 1000000;
 	
     $('#btnGerar').addClass("disabled");
     
@@ -267,4 +269,14 @@ $(document).ready(function(){
             });
         });
     });
+    
+	/**
+	 * Abrir tela Settings
+	 * 
+	 * @author luizleao
+	 */
+	$("a#btnSettings").click(function () {
+	    $('#modalUrl').find('.modal-content').load('settings.php');
+	    modalUrl.open();
+	});	
 });

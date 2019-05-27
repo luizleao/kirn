@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Util | classes/Class.Util.php
+ * Class Util | classes/Util.class.php
  *
  * @package     classes
  * @author      Luiz Leão <luizleao@gmail.com>
@@ -268,23 +268,6 @@ class Util {
     }
     
     /**
-     * Carrega lista de arquivos de um diretório
-     * 
-     * @param string $diretorio
-     * @return string[]
-     */
-    static function getAllArquivosDiretorio($diretorio){
-        $arquivos = [];
-        $dh = opendir($diretorio);
-        while(($file = readdir($dh)) !== false){
-            if($file != ".." && $file != "." && $file != ".svn"){
-                $arquivos[] = $file;
-            }
-        }
-        return $arquivos;
-    }
-    
-    /**
      * Copia diretório para destino
      * 
      * @param string $alvo
@@ -490,14 +473,20 @@ class Util {
      * @param string[] $var
      * @return void
      */
-    static function trace($var){
-        print "<pre>"; print_r($var); print "</pre>";
+    static function trace($var, $console=false){
+        if($console){
+            var_dump($var);
+        }
+        else{
+            print "<pre>"; print_r($var); print "</pre>";
+        }
     }
     
     /**
      * Recupera o conteúdo do template selecionado
      * 
      * @param string $modelo Modelo a ser recuperado
+     * @tags getConteudoTemplate
      * @return string|boolean
      */
     static function getConteudoTemplate($modelo){
@@ -507,7 +496,8 @@ class Util {
             $fpTemp = @fopen($dirTemp,"r") or die("Erro ao carregar template: $dirTemp");
             while(!feof($fpTemp))  $conteudo  .= fgets($fpTemp,4096);  fclose($fpTemp);
             return $conteudo;
-        } catch(Exception $e){
+        }
+        catch(Exception $e){
             print "Erro!! - ".$e->getMessage();
             return false;
         }
@@ -515,6 +505,7 @@ class Util {
     
     /**
      * Limpar caracteres especiais da string
+     * 
      * @param string $campo
      * @return string
      */

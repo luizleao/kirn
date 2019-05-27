@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Conexao | classes/Class.Conexao.php
+ * Class Conexao | classes/Conexao.class.php
  *
  * @package     classes
  * @author      Luiz Leão <luizleao@gmail.com>

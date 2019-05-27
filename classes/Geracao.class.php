@@ -1,5 +1,4 @@
 <?php
-require_once('autoload.php');
 /**
  * Class Geracao | classes/Geracao.class.php
  *
@@ -46,6 +45,8 @@ class Geracao {
      * @return void
      */
     function __construct($xml, $gui=NULL, $projeto=NULL){
+        require_once('autoload.php');
+        
         $this->projeto = $projeto;
         $this->xml     = join(file($xml),"");
         $this->gui     = $gui;
@@ -292,7 +293,7 @@ class Geracao {
 
                 # monta parametros a serem substituidos posteriormente
                 $label = ($nomeFKClasse != '') ? ucfirst(strtolower($nomeFKClasse)) : ucfirst(str_replace($nomeClasse,"",$nomeCampoOriginal));
-                $camposForm[] = ((int)$oCampo['pk'] == 'true') ? "if(\$acao == 2){\n\t\t\tif(\$$nomeCampoOriginal == ''){\n\t\t\t\t\$this->msg = \"$label inválido!\";\n\t\t\t\treturn false;\n\t\t\t}\n\t\t}" : "if(\$$nomeCampoOriginal == ''){\n\t\t\t\$this->msg = \"$label inválido!\";\n\t\t\treturn false;\n\t\t}\t";
+                $camposForm[] = ((string)$oCampo['pk'] == 'true') ? "if(\$acao == 2){\n\t\t\tif(\$$nomeCampoOriginal == ''){\n\t\t\t\t\$this->msg = \"$label inválido!\";\n\t\t\t\treturn false;\n\t\t\t}\n\t\t}" : "if(\$$nomeCampoOriginal == ''){\n\t\t\t\$this->msg = \"$label inválido!\";\n\t\t\treturn false;\n\t\t}\t";
             }
             # monta demais valores a serem substituidos
             $camposForm = join($camposForm,"\n\t\t");
@@ -360,7 +361,7 @@ class Geracao {
                     		}
                     	} else {
                     		
-	                        if((int)$oCampo['pk'] == 'true')
+	                        if((string)$oCampo['pk'] == 'true')
 	                            if((string)$aTabela['type'] != 'NORMAL')
 	                                $camposForm[] = "\$post[\"$nomeCampoOriginal\"] = strip_tags(addslashes(trim(\$post[\"$nomeCampoOriginal\"])));";
 	                            else
@@ -584,6 +585,372 @@ class Geracao {
         copy(dirname(dirname(__FILE__))."/templates/{$this->gui}/home.php",   "$dir/home.php");
 
         return true;	
+    }
+    
+    /**
+     * Geracao das Interfaces do sistema
+     *
+     * @access public
+     * @return bool
+     */
+    public function geraInterfaceAux(){        
+        $dir = dirname(dirname(__FILE__))."/geradas/".$this->projeto."/";
+        if(!file_exists($dir)) mkdir($dir);
+        
+        # Abre arquivo xml para navegacao
+        $aBanco = simplexml_load_string($this->xml);
+        
+        # ==== Alterar arquivo index =====
+        $modeloIndex = Util::getConteudoTemplate($this->gui.'/index.php');
+        $modeloIndex = str_replace('%%PROJETO%%', ucfirst($aBanco['name']), $modeloIndex);
+        
+        $fpIndex = fopen("$dir/index.php",  "w");
+        fputs($fpIndex, $modeloIndex);
+        fclose($fpIndex);
+        
+        # ============== Arquivo de titulo ===================
+        $modeloTitulo = Util::getConteudoTemplate($this->gui.'/Modelo.titulo.tpl');
+        $modeloTitulo = str_replace('%%DATABASE%%', ucfirst($aBanco['name']), $modeloTitulo);
+        
+        $fpTitulo = fopen($dir."includes/titulo.php",  "w");
+        fputs($fpTitulo, $modeloTitulo);
+        fclose($fpTitulo);
+        
+        // ========= Copiar arquivos adicionais do projeto ========
+        copy(dirname(dirname(__FILE__))."/templates/{$this->gui}/home.php", "$dir/home.php");
+        
+        
+        $this->geraInterfaceAdm();
+        $this->geraInterfaceFrm();
+        $this->geraInterfaceDetail();
+        return true;
+    }
+
+    /**
+     * Geracao das Interfaces Detail do sistema
+     *
+     * @access public
+     * @return bool
+     */
+    public function geraInterfaceDetail(){
+        # Abre o template da classe basica e armazena conteudo do modelo
+        $modeloDetail = Util::getConteudoTemplate($this->gui.'/Modelo.detail.tpl');
+        
+        # Abre arquivo xml para navegacao
+        $aBanco = simplexml_load_string($this->xml);
+        
+        # Varre a estrutura das tabelas
+        foreach($aBanco as $aTabela){
+            // === Nao gerar interface de tabelas n:m
+            if((string)$aTabela['type'] == 'N:M') continue;
+            $copiaModeloDetail = $modeloDetail;
+            
+            $nomeClasse	  = ucfirst($this->getCamelMode((string)$aTabela['name']));
+            $objetoClasse = "\$o$nomeClasse";
+            
+            # Varre a estrutura dos campos da tabela em questao
+            $aPKRequest = $aCampoPK = $aGetAll = $aCampoDetail = [];
+            $ID_PK = $label = NULL;
+            
+            foreach($aTabela as $oCampo){
+                
+                $nomeFKClasse = ucfirst($this->getCamelMode((string)$oCampo['fkTable']));
+                //$label        = ((string)$oCampo['fkColumn'] != '') ? ucfirst(preg_replace("#^(?:id_?|cd_?)(.*?)#is", "$1", (string)$oCampo['name'])) :
+                $label        = ((string)$oCampo['fkColumn'] != '') ? $nomeFKClasse :
+                ucfirst(str_replace((string)$aTabela['name'], "", (string)$oCampo['name']));
+                
+                $campoAdm = ((string)$oCampo['fkColumn'] != '') ? $objetoClasse."->o$label"."->".$this->getTituloObjeto((string)$oCampo['fkTable']) :
+                $objetoClasse."->".$oCampo['name'];
+                
+                if((string)$oCampo['pk'] == "true"){
+                    $aPKRequest[] = "\$_REQUEST['{$oCampo['name']}']";
+                    $aCampoPK[]   = Form::geraHidden((string)$oCampo['name']);
+                    
+                    $ID_PK = ((string)$oCampo['fkTable'] != '') ? $oCampo['fkColumn'] : (string)$oCampo['name'];
+                } else {
+                    switch((string)$oCampo['type']){
+                        case "date":
+                            $campoAdm = Form::geraCalendario($objetoClasse, (string)$oCampo['name'], $label, 'ADM', false, $this->gui);
+                            break;
+                            
+                        case "datetime":
+                        case "timestamp":
+                            $campoAdm  = Form::geraCalendario($objetoClasse, (string)$oCampo['name'], $label, 'ADM', true, $this->gui);
+                            break;
+                    }
+                }
+                
+                $aCampoDetail[] = Form::geraDetailText($campoAdm, $label, $this->gui);
+            }
+            
+            # ===== Montar lista dos metodos Carregar Colecao =======
+            $aTabelaFK = $this->getAllTabelaFK((string)$aTabela['name']);
+            
+            foreach($aTabelaFK as $oCampoFK => $oDadosTabelaFK){
+                $nomeClasseFK = ucfirst($this->getCamelMode($oDadosTabelaFK['fkTable']));
+                $aGetAll[]    = "\$oController$nomeClasseFK = new Controller$nomeClasseFK();\r\$a$nomeClasseFK = \$oController{$nomeClasseFK}->getAll([], []);";
+            }
+            
+            # monta demais valores a serem substituidos
+            $sCampoDetail = join($aCampoDetail, "\n");
+            
+            # substitui todas os parametros pelas variaveis ja processadas
+            # ================ Template Detail ==================
+            $copiaModeloDetail = str_replace('%%NOME_CLASSE%%', $nomeClasse,   $copiaModeloDetail);
+            $copiaModeloDetail = str_replace('%%ATRIBUICAO%%',  $sCampoDetail, $copiaModeloDetail);
+            $copiaModeloDetail = str_replace('%%ID_PK%%',       $ID_PK,        $copiaModeloDetail);
+            
+            $dir = dirname(dirname(__FILE__))."/geradas/".$this->projeto."/";
+            
+            if(!file_exists($dir)) mkdir($dir);
+            
+            $fpDetail = fopen("$dir/detail$nomeClasse.php", "w"); 
+            fputs($fpDetail, $copiaModeloDetail); 
+            fclose($fpDetail);
+            
+            // ======= Limpa arrays =======
+            unset($aGetAll);
+            unset($aPKRequest);
+            unset($aCampoPK);
+            unset($aCampoDetail);
+        }
+
+        return true;
+    }
+    
+    
+    /**
+     * Geracao das Interfaces Frm do sistema
+     *
+     * @access public
+     * @return bool
+     */
+    public function geraInterfaceFrm(){
+        # Abre o template da classe basica e armazena conteudo do modelo
+        $modeloFrm = Util::getConteudoTemplate($this->gui.'/Modelo.frm.tpl');
+        
+        $dir = '';
+        
+        # Abre arquivo xml para navegacao
+        $aBanco = simplexml_load_string($this->xml);
+        
+        # Varre a estrutura das tabelas
+        foreach($aBanco as $aTabela){
+            // === Nao gerar interface de tabelas n:m
+            if((string)$aTabela['type'] == 'N:M') continue;
+            $copiaModeloFrm    = $modeloFrm;
+            
+            $nomeClasse	  = ucfirst($this->getCamelMode((string)$aTabela['name']));
+            $objetoClasse = "\$o$nomeClasse";
+            
+            # Varre a estrutura dos campos da tabela em questao
+            $aPKRequest = $aCampoPK = $aCampoFrm = $aGetAll = [];
+            $PK = $ID_PK = $label = $componenteFrm = NULL;
+            
+            foreach($aTabela as $oCampo){
+                $nomeFKClasse = ucfirst($this->getCamelMode((string)$oCampo['fkTable']));
+                //$label        = ((string)$oCampo['fkColumn'] != '') ? ucfirst(preg_replace("#^(?:id_?|cd_?)(.*?)#is", "$1", (string)$oCampo['name'])) :
+                $label        = ((string)$oCampo['fkColumn'] != '') ? $nomeFKClasse :
+                ucfirst(str_replace((string)$aTabela['name'], "", (string)$oCampo['name']));
+
+                if((string)$oCampo['pk'] == "true"){
+                    $aPKRequest[] = "\$_REQUEST['{$oCampo['name']}']";
+                    $aCampoPK[]   = Form::geraHidden((string)$oCampo['name']);
+                    
+                    if((string)$oCampo['fkTable'] != ''){ // Tabela cuja PK = FK => Relacao 1:1
+                        $PK    = "o$nomeFKClasse"."->".$oCampo['fkColumn'];
+                        $ID_PK = $oCampo['fkColumn'];
+                        
+                        //print "($objetoClasse, {$oCampo['name']}, $label, $nomeFKClasse, ".$this->getTituloObjeto((string)$oCampo['fkTable']).", 'CAD')\n";
+                        $componenteFrm = Form::geraSelect($objetoClasse, (string)$oCampo['name'], $label, $oCampo['fkColumn'], $this->getTituloObjeto((string)$oCampo['fkTable']), 'EDIT', $this->gui);
+                        
+                    } else {
+                        $PK = (string)$oCampo['name'];
+                        $ID_PK = (string)$oCampo['name'];
+                    }
+                } else {
+                    switch((string)$oCampo['type']){
+                        case "date":
+                            $componenteFrm = Form::geraCalendario($objetoClasse, (string)$oCampo['name'], $label, 'EDIT', false, $this->gui);
+                            break;
+                            
+                        case "datetime":
+                        case "timestamp":
+                            $componenteFrm = Form::geraCalendario($objetoClasse, (string)$oCampo['name'], $label, 'EDIT', true, $this->gui);
+                            break;
+                            
+                        case "text":
+                            $componenteFrm = Form::geraTextArea($objetoClasse, (string)$oCampo['name'], $label, 'EDIT', $this->gui);
+                            break;
+                            
+                        case "tinyint(1)":
+                            $componenteFrm = Form::geraCheckBox($objetoClasse, (string)$oCampo['name'], $label, 'EDIT', $this->gui);
+                            break;
+                            
+                        default:
+                            if($oCampo['fkColumn'] != ''){
+                                $componenteFrm = Form::geraSelect($objetoClasse, (string)$oCampo['name'], $label, $oCampo['fkColumn'], $this->getTituloObjeto((string)$oCampo['fkTable']), 'EDIT', $this->gui);
+                            }
+                            else{
+                                $componenteFrm = (preg_match("#(?:senha|password)#is", $oCampo['name']))   ?
+                                Form::geraPassword($objetoClasse, (string)$oCampo['name'], $label, 'EDIT', $this->gui) :
+                                Form::geraInput($objetoClasse,    (string)$oCampo['name'], $label, 'EDIT', (string)$oCampo['type'], $this->gui);
+                                //Util::trace($oCampo);
+                            }
+                            # ============ Campo Enum =============
+                            if(preg_match("#enum#i", (string)$oCampo['type'])){
+                                $componenteFrm = Form::geraEnum($objetoClasse, (string)$oCampo['name'], (string)$oCampo['type'], $label, 'EDIT', $this->gui);
+                            }
+                            break;
+                    }
+                }
+                
+                $aCampoFrm[] = $componenteFrm;
+            }
+            
+            # ===== Montar lista dos metodos Carregar Colecao =======
+            $aTabelaFK = $this->getAllTabelaFK((string)$aTabela['name']);
+            
+            foreach($aTabelaFK as $oCampoFK => $oDadosTabelaFK){
+                $nomeClasseFK = ucfirst($this->getCamelMode($oDadosTabelaFK['fkTable']));
+                $aGetAll[]    = "\$oController$nomeClasseFK = new Controller$nomeClasseFK();\r\$a$nomeClasseFK = \$oController{$nomeClasseFK}->getAll([], []);";
+            }
+            
+            # monta demais valores a serem substituidos
+            $sCampoFrm  = join($aCampoFrm, "\n");
+            $sCampoPK   = join($aCampoPK,   "\n");
+            
+            $sGetAll = (count($aGetAll) > 0) ? join($aGetAll,"\n") : "";
+            
+            # substitui todas os parametros pelas variaveis ja processadas
+            
+            # ================ Template Frm ==================
+            $copiaModeloFrm = str_replace('%%NOME_CLASSE%%',     $nomeClasse, $copiaModeloFrm);
+            $copiaModeloFrm = str_replace('%%CARREGA_COLECAO%%', $sGetAll,    $copiaModeloFrm);
+            $copiaModeloFrm = str_replace('%%ATRIBUICAO%%',      $sCampoFrm,  $copiaModeloFrm);
+            $copiaModeloFrm = str_replace('%%CHAVE_PRIMARIA%%',  $sCampoPK,   $copiaModeloFrm);
+            $copiaModeloFrm = str_replace('%%PK%%',              $PK,         $copiaModeloFrm);
+            $copiaModeloFrm = str_replace('%%ID_PK%%',           $ID_PK,      $copiaModeloFrm);
+            
+            $dir = dirname(dirname(__FILE__))."/geradas/".$this->projeto."/";
+            
+            if(!file_exists($dir)) mkdir($dir);
+            
+            $fpFrm = fopen("$dir/frm$nomeClasse.php", "w");
+            fputs($fpFrm, $copiaModeloFrm); 
+            fclose($fpFrm);
+            
+            // ======= Limpa arrays =======
+            unset($aGetAll);
+            unset($aCampoFrm);
+            unset($aPKRequest);
+            unset($aCampoPK);
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Geracao das Interfaces Adm do sistema
+     *
+     * @access public
+     * @return bool
+     */
+    public function geraInterfaceAdm(){
+        # Abre o template da classe basica e armazena conteudo do modelo
+        $modeloAdm = Util::getConteudoTemplate($this->gui.'/Modelo.adm.tpl');        
+        $dir = '';
+        
+        # Abre arquivo xml para navegacao
+        $aBanco = simplexml_load_string($this->xml);
+        
+        # Varre a estrutura das tabelas
+        foreach($aBanco as $aTabela){
+            // === Nao gerar interface de tabelas n:m
+            if((string)$aTabela['type'] == 'N:M') continue;
+                
+            $copiaModeloAdm = $modeloAdm;
+            
+            $nomeClasse	  = ucfirst($this->getCamelMode((string)$aTabela['name']));
+            $objetoClasse = "\$o$nomeClasse";
+            
+            # Varre a estrutura dos campos da tabela em questao
+            $aPKRequest = $aTituloAdm = $aCampoAdm = $aGetAll = [];
+            $PK = $ID_PK = $label = $campoAdm = NULL;
+            
+            foreach($aTabela as $oCampo){
+                $nomeFKClasse = ucfirst($this->getCamelMode((string)$oCampo['fkTable']));
+                $label        = ((string)$oCampo['fkColumn'] != '') ? $nomeFKClasse :
+                ucfirst(str_replace((string)$aTabela['name'], "", (string)$oCampo['name']));
+                
+                $campoAdm = ((string)$oCampo['fkColumn'] != '') ? $objetoClasse."->o$label"."->".$this->getTituloObjeto((string)$oCampo['fkTable']) :
+                $objetoClasse."->".$oCampo['name'];
+                
+                if((string)$oCampo['pk'] == "true"){
+                    $aPKRequest[] = "\$_REQUEST['{$oCampo['name']}']";
+                    
+                    #Tabela cuja PK = FK => Relacao 1:1
+                    $PK    = ((string)$oCampo['fkTable'] != '') ? "o$nomeFKClasse"."->".$oCampo['fkColumn'] : (string)$oCampo['name'];
+                    $ID_PK = ((string)$oCampo['fkTable'] != '') ? $oCampo['fkColumn'] : (string)$oCampo['name'];
+                    
+                } else {
+                    switch((string)$oCampo['type']){
+                        case "date":
+                            $campoAdm = Form::geraCalendario($objetoClasse, (string)$oCampo['name'], $label, 'ADM', false, $this->gui);
+                        break;
+                            
+                        case "datetime":
+                        case "timestamp":
+                            $campoAdm = Form::geraCalendario($objetoClasse, (string)$oCampo['name'], $label, 'ADM', true, $this->gui);
+                        break;
+                    }
+                }
+                $aTituloAdm[] = "<th>$label</th>";
+                $aCampoAdm[]  = "<td><?=$campoAdm?></td>";
+            }
+            
+            # ===== Montar lista dos metodos Carregar Colecao =======
+            $aTabelaFK = $this->getAllTabelaFK((string)$aTabela['name']);
+            
+            foreach($aTabelaFK as $oCampoFK => $oDadosTabelaFK){
+                $nomeClasseFK = ucfirst($this->getCamelMode($oDadosTabelaFK['fkTable']));
+                $aGetAll[]    = "\$oController$nomeClasseFK = new Controller$nomeClasseFK();\r\$a$nomeClasseFK = \$oController{$nomeClasseFK}->getAll([], []);";
+            }
+            
+            # monta demais valores a serem substituidos
+            $sPKRequest = join($aPKRequest, ", ");
+            $sTituloAdm = join($aTituloAdm, "\n\t\t\t\t\t");
+            $sCampoAdm  = join($aCampoAdm,  "\n\t\t\t\t\t");
+            
+            # substitui todas os parametros pelas variaveis ja processadas
+            $copiaModeloAdm = str_replace('%%NOME_CLASSE%%',     $nomeClasse, $copiaModeloAdm);
+            $copiaModeloAdm = str_replace('%%TITULOATRIBUTOS%%', $sTituloAdm, $copiaModeloAdm);
+            $copiaModeloAdm = str_replace('%%VALORATRIBUTOS%%',  $sCampoAdm,  $copiaModeloAdm);
+            $copiaModeloAdm = str_replace('%%ADM_INFO%%',  	     (($PK != '') ? Form::geraAdmInfo($nomeClasse, $ID_PK, $PK, $this->gui) : ''),  $copiaModeloAdm);
+            $copiaModeloAdm = str_replace('%%ADM_EDIT%%',  	     (($PK != '') ? Form::geraAdmEdit($nomeClasse, $ID_PK, $PK, $this->gui) : ''),  $copiaModeloAdm);
+            $copiaModeloAdm = str_replace('%%ADM_DELETE%%',      (($PK != '') ? Form::geraAdmDelete($nomeClasse, $ID_PK, $PK, $this->gui) : ''), $copiaModeloAdm);
+            
+            /* ========= 2 devido as colunas Editar e Excluir ============= */
+            $copiaModeloAdm = str_replace('%%NUMERO_COLUNAS%%', count($aTituloAdm)+3, $copiaModeloAdm);
+            $copiaModeloAdm = str_replace('%%PK_REQUEST%%',     $sPKRequest,           $copiaModeloAdm);
+            $copiaModeloAdm = str_replace('%%PK%%',     		"{$aTabela['name']}.$ID_PK", $copiaModeloAdm);
+            
+            
+            $dir = dirname(dirname(__FILE__))."/geradas/".$this->projeto."/";
+            
+            if(!file_exists($dir)) mkdir($dir);
+            
+            $fpAdm = fopen("$dir/adm$nomeClasse.php",  "w"); 
+            fputs($fpAdm, $copiaModeloAdm); 
+            fclose($fpAdm);
+            
+            // ======= Limpa arrays =======
+            unset($aGetAll);
+            unset($aTituloAdm);
+            unset($aCampoAdm);
+            unset($aPKRequest);
+        }
+        return true;
     }
 
     /**

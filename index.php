@@ -31,7 +31,6 @@ switch ($_REQUEST['acao']) {
 	<?php include_once("includes/menu.php");?>
 	<?php include_once("includes/loading.php");?>
 	<main class="light">
-		<blockquote class="border">Framework Container</blockquote>
 		<form onsubmit="return false;">
 			<div class="row">
 				<div class="col s6">
@@ -79,7 +78,8 @@ switch ($_REQUEST['acao']) {
         					</div> 
         				</div>
     				</div>
-<!--    				<div class="row">
+<!--    				
+                    <div class="row">
         				<div class="col s12">
         					<div class="card">
             					<div class="card-content">
@@ -117,25 +117,26 @@ if($aXML){
 ?>
     									<tr>
     										<td><?=ucfirst(utf8_encode($xml))?></td>
-    										<td><a class="btn btn-small btn-flat" href="xml/<?=$xml?>.xml?" target="_blank"><i class="material-icons">insert_link</i></a></td>
-											<td>
-    											<a href="?acao=download&app=<?=$xml?>" class="btn btn-small btn-flat" target="_blank"><i class="material-icons tiny">edit</i></a>
-											</td>											
+    										<td>
+												<a class="dropdown-trigger btn btn-flat btn-small" href="#" data-target="btnMenuOptions<?=$xml?>"><i class="material-icons">more_horiz</i></a>
+												<ul id="btnMenuOptions<?=$xml?>" class="dropdown-content">
+                                                    <li><a href="xml/<?=$xml?>.xml?" target="_blank"><i class="material-icons">insert_link</i> Ver XML</a></li>
+                                                    <li><a href="#" target="_blank"><i class="material-icons tiny">edit</i> Editar XML</a></li>
+                                                    <li><a id="btnExcluirXML" data-xml="<?=$xml?>" href="#"><i class="material-icons">delete</i> Excluir XML</a></li>
 <?php 
         if(file_exists("geradas/$xml")){
 ?>
-											<td>
-    											<a class="btn btn-small btn-flat" href="geradas/<?=$xml?>/" target="_blank"><i class="material-icons tiny">open_in_browser</i></a>
-											</td>
-    										<td>
-    											<a href="?acao=download&app=<?=$xml?>" class="btn btn-small btn-flat" target="_blank"><i class="material-icons tiny">cloud_download</i></a>
-											</td>
+                                                    <li class="divider"></li>													
+                                                    <li><a href="report.php?xml=<?=$xml?>" target="_blank"><i class="material-icons">info</i> Relatório do Projeto</a></li>
+                                                    <li><a href="geradas/<?=$xml?>/" target="_blank"><i class="material-icons tiny">open_in_browser</i> Abrir</a></li>
+                                                    <li><a href="?acao=download&app=<?=$xml?>" target="_blank"><i class="material-icons tiny">cloud_download</i> Download</a></li>
 <?php
         }
 ?>
-    										<td><a id="btnExcluirXML" data-xml="<?=$xml?>" class="btn btn-small btn-flat" href="#"><i class="material-icons">delete</i></a></td>
+												</ul>
+    										</td>
     										<td>
-												<a class="dropdown-trigger btn btn-flat btn-small" href="#" data-target="btnMenu<?=$xml?>"><i class="material-icons">more_horiz</i></a>
+												<a class="dropdown-trigger btn btn-flat btn-small" href="#" data-target="btnMenu<?=$xml?>"><i class="material-icons">settings</i></a>
 												<ul id="btnMenu<?=$xml?>" class="dropdown-content">
                                                     <li><a href="#" id="btnGerarArtefatos" data-xml="<?=$xml?>" data-gui="bootstrap2"><img src="img/icon-bootstrap.png" alt="Bootstrap 2" /> Bootstrap 2</a></li>
                                                     <li><a href="#" id="btnGerarArtefatos" data-xml="<?=$xml?>" data-gui="bootstrap3"><img src="img/icon-bootstrap.png" alt="Bootstrap 3" /> Bootstrap 3</a></li>

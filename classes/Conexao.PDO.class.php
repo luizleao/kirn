@@ -1,6 +1,6 @@
 <?php
 /**
- * Class ConexaoPDO | classes/Class.Conexao.PDO.php
+ * Class ConexaoPDO | classes/Conexao.PDO.class.php
  *
  * @package     classes
  * @author      Luiz Leão <luizleao@gmail.com>

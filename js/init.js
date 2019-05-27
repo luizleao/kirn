@@ -2,6 +2,8 @@ M.AutoInit();
 //console.log(M);
 $(document).ready(function(){
 	//$('select').formSelect();
+	//$('.tabs').tabs();
+	
 	$(".dropdown-trigger").dropdown({
 		tabIndex: 1,
 		inDuration: 300,

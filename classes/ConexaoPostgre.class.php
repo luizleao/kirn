@@ -1,6 +1,6 @@
 <?php
 /**
- * Class ConexaoPostgre | classes/Class.Conexao.Postgre.php
+ * Class ConexaoPostgre | classes/Conexao.Postgre.class.php
  *
  * @package     classes
  * @author      Luiz Leão <luizleao@gmail.com>
