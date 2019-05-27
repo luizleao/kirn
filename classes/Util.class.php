@@ -17,7 +17,7 @@ class Util {
      * 
      * @return array
      */
-    static function getAllEstados() : array{
+    static function getAllEstados(){
         return ["AC","AL","AP","AM","BA","CE","DF",
                      "ES","GO","MA","MT","MS","MG","PA",
                      "PB","PR","PE","PI","RJ","RN","RS",
@@ -32,7 +32,7 @@ class Util {
      * @param int $ano
      * @return int
      */
-    static function getDiaSemana($dia, $mes, $ano) : int{
+    static function getDiaSemana($dia, $mes, $ano){
         return date('w', mktime(0, 0, 0, $mes, $dia, $ano));
     }
     
@@ -44,7 +44,7 @@ class Util {
      * @param int $ano
      * @return string
      */
-    static function getDiaSemanaExtenso($dia, $mes, $ano) : string{
+    static function getDiaSemanaExtenso($dia, $mes, $ano){
         $a = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
         return $a[Util::getDiaSemana($dia, $mes, $ano)];
     }
@@ -55,7 +55,7 @@ class Util {
      * @param string $mes
      * @return string
      */
-    static function getMesExtenso($mes) : string{
+    static function getMesExtenso($mes){
         $regMes = Util::getAllMesExtenso();
         return $regMes[$mes-1];
     }
@@ -65,7 +65,7 @@ class Util {
      * 
      * @return array
      */
-    static function getAllMesExtenso() : array{
+    static function getAllMesExtenso(){
         return ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
     }
 
