@@ -35,7 +35,7 @@ class Project {
     }
     
     /**
-     * Retorna todos arquivos de um diretorio, recursivamente
+     * Retorna todos os arquivos do diretório do projeto selecionado, recursivamente
      * 
      * @param string $path
      * @return string[]
@@ -51,7 +51,12 @@ class Project {
         
         return $files;
     }
-    
+    /**
+     * Retorna o total de linhas de código do projeto selecionado 
+     * 
+     * @param String $path
+     * @return number
+     */
     static function getTotalLineProject($path){
         $aFile = Project::getAllFileDir($path);
         $count = 0;
@@ -69,7 +74,7 @@ class Project {
     }
     
     /**
-     * Retorna info do projeto
+     * Retorna informações do projeto selecionado, contidas no arquivo KML respectivo
      * 
      * 
      * @param string $xml
@@ -82,7 +87,7 @@ class Project {
         return $aBanco;
     }
     /**
-     * Calcula atraves de APF o esforco de desenvolvimento da aplicacao gerada
+     * Calcula, através de análise de ponto de função, o esforço de desenvolvimento da aplicação base gerada.
      * 
      * @param string $xml
      * @return int
@@ -110,18 +115,18 @@ class Project {
 
             //AIE = 0
             
-            //SE_Baixa = 2 (Edit, Del) * 4 {1-19 campos}
-            //SE_Media = 2 (Edit, Del) * 5 {>19 Campos}
-            $totalPF += 2 * (($count <=19) ? 4 : 5);
+            //SE_Baixa = 0 * 4 {1-19 campos}
+            //SE_Media = 0 * 5 {>19 Campos}
+            $totalPF += 0;
             
             
             //CE_Baixa = 3 (Adm, Info, Buscar) * 3 {1-19 campos}
             //CE_Media = 3 (Adm, Info, Buscar) * 4 {>19 Campos}
-            $totalPF += 3 * (($count <=19) ? 4 : 5);
+            $totalPF += 3 * (($count <=19) ? 3 : 4);
             
-            //EE_Baixa = 1 (Cad) * 3 {1-15 Campos}
-            //EE_Media = 1 (Cad) * 4 {>15 Campos}
-            $totalPF += (($count <=15) ? 3 : 4);
+            //EE_Baixa = 3 (Cad, Edit, Del) * 3 {1-15 Campos}
+            //EE_Media = 3 (Cad, Edit, Del) * 4 {>15 Campos}
+            $totalPF += 3 * (($count <=15) ? 3 : 4);
         }
         
         //CE_Baixa = 3 (alterarSenha, login, sair) *  3 {1-19 campos}
