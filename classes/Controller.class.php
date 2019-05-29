@@ -270,6 +270,7 @@ class Controller{
             
             $msg = "Projeto: <strong>$xml</strong>: <br />";
             $msg .= "Framework Front-End: <strong>$gui</strong>: <br />";
+            $msg .= "Framework Back-End: <strong>Kirn Framework</strong>: <br />";
             $msg .= "Log de Geração de Artefatos<hr /><pre>";
             $msg .= str_pad("Pastas do template ",50,".").                   ((!Util::copydir("templates/$gui/dir/", "geradas/$xml/")) ? "Falha" : "Ok")."\n";
             $msg .= str_pad("Pacote comum ",50,".").                         ((!Util::copydir("templates/comum/",   "geradas/$xml/"))  ? "Falha" : "Ok")."\n";
@@ -298,6 +299,8 @@ class Controller{
             $msg .= str_pad("Valor do PF (R$)",50,".").                       "$valorPF\n";
             $msg .= str_pad("Valor Estimado do Projeto Gerado (R$)",50,".").  Util::formataMoeda($totalPF*$valorPF)."\n";
             $msg .= str_pad("Prazo Estimado de Entrega (Dias Uteis)",50,".").  (int)round($totalPF/8)."</pre>";
+            
+            $this->updateXmlDataProject($xml, $gui);
             
             return $msg;
         } catch (Exception $e){
@@ -406,5 +409,18 @@ class Controller{
      */
     public function getSettings(){
         return parse_ini_file(dirname(__FILE__) . "/settings.ini", true);
+    }
+    
+    public function updateXmlDataProject($project, $gui){
+        
+        $xml = simplexml_load_file(dirname(dirname(__FILE__))."/xml/$project.xml");
+        
+        $xml["frontEnd"] =  $gui;
+        $xml["backEnd"] = "Kirn Framework";
+        $xml["totalPf"] = Project::getTotalPFProject(dirname(dirname(__FILE__))."/xml/$project.xml");
+        $xml["numLineCode"] = Project::getTotalLineProject("geradas/$project/");
+       
+        //Util::trace($xml);
+        file_put_contents(dirname(dirname(__FILE__))."/xml/$project.xml", $xml->asXML());
     }
 }
