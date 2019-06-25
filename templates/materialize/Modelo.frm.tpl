@@ -31,7 +31,7 @@ if($oController->msg != "")
 ?>
         <form role="form" onsubmit="return false;">
              <div class="row">
-                <div class="col s6">
+                <div class="col m6 s12">
                     %%ATRIBUICAO%%
                 </div>
             </div>

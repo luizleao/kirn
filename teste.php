@@ -1,9 +1,31 @@
 <?php
-require_once("classes/autoload.php");
+//require_once("classes/autoload.php");
+require_once("geradas/blog/classes/autoload.php");
 try{
     //$oControle = new Controller();
     //$oGeracao = new Geracao(dirname(__FILE__)."/xml/blog.xml");
     
+    
+    //print "<pre>"; var_dump(get_object_vars($oComentario));print "</pre>"; 
+       
+    function parseClass($class, $i=1){
+/*
+        $aux = (array)get_object_vars($class);
+        if($i == 1)
+            Util::trace($aux);
+*/
+        foreach($class as $class1=>$att1){
+            echo "@@$i ..... $class1 <br />";
+            if(is_object($att1)){
+                parseClass($att1, ($i+1));
+            }
+        }
+    }
+    
+    parseClass(new Comentario());
+    
+    
+    //Util::trace($aux);
     //Util::trace($oGeracao->getTituloObjeto("Comentario"));
     //Util::trace($oGeracao->getAllAtributo("Post"));
     //Util::trace($oGeracao->getObjetosMontados("Comentario"));
@@ -28,10 +50,12 @@ try{
     */
     //Util::trace(Util::getTotalLineProject(dirname(__FILE__)."/geradas/blog"), true);
     
-    echo Project::getTotalPFProject(dirname(__FILE__)."/xml/CentralServicos.xml")." PFs\n";
+    //echo Project::getTotalPFProject(dirname(__FILE__)."/xml/CentralServicos.xml")." PFs\n";
     //echo Project::getTotalPFProject(dirname(__FILE__)."/xml/seguradora.xml")." PFs\n";
     //echo Project::getTotalPFProject(dirname(__FILE__)."/xml/blog.xml")." PFs\n";
     //echo Project::getTotalPFProject(dirname(__FILE__)."/xml/academico.xml")." PFs\n";
+    
+    
         
 } catch (Exception $e){
     return "Erro na operação";

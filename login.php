@@ -30,10 +30,8 @@ switch ($_REQUEST['acao']) {
 <body>
 	<?php include_once("includes/menu.php");?>
 	<?php include_once("includes/loading.php");?>
-	<main class="light">
-		
+	<main>
 		<form onsubmit="return false;">
-		
 			<div class="row">
 				<div class="col s6">
 					<div class="row">

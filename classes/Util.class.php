@@ -332,7 +332,7 @@ class Util {
      * @param string $valor
      * @return string
      */
-    static function formataConsultaLike($valor) : string{
+    static function formataConsultaLike($valor){
         return "%".join("%", explode(" ", $valor))."%";
     }
     
@@ -342,7 +342,7 @@ class Util {
      * @param string $str
      * @return string
      */
-    static function fullUpper($str) : string{
+    static function fullUpper($str){
         // convert to entities
         $subject  = htmlentities($str, ENT_QUOTES);
         $pattern  = '/&([a-z])(uml|acute|circ';
@@ -412,7 +412,7 @@ class Util {
      * @param string $cpf
      * @return bool
      */
-    static function validaCPF($cpf) : bool{
+    static function validaCPF($cpf){
     	$c  = substr("$cpf", 0,9);
     	$dv = substr("$cpf", 9,2);
     	$d1 = 0;
@@ -449,7 +449,7 @@ class Util {
      * @param string $cnpj
      * @return bool
      */
-    static function validaCNPJ($cnpj) : bool{
+    static function validaCNPJ($cnpj){
         if(strlen($cnpj) != 14) 
             return false; 
         $soma1 = ($cnpj[0] * 5) + ($cnpj[1] * 4) + ($cnpj[2] * 3) + ($cnpj[3] * 2) + 
