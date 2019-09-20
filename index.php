@@ -27,13 +27,13 @@ switch ($_REQUEST['acao']) {
 <head>
 	<?php include_once("includes/header.php");?>
 </head>
-<body>
+<body class="cyan lighten-5">
 	<?php include_once("includes/menu.php");?>
 	<?php include_once("includes/loading.php");?>
-	<main class="light">
+	<main>
 		<form onsubmit="return false;">
 			<div class="row">
-				<div class="col s6">
+				<div class="col m6 s12">
 					<div class="row">
         				<div class="col s12">
         					<div class="card">
@@ -71,7 +71,7 @@ switch ($_REQUEST['acao']) {
                                             <label for="database">Database</label>
                                         </div>
                                         <div class="input-field col s1">
-                                        	<button id="btnGerarXml" type="submit" class="btn btn-small">XML</button>
+                                        	<button id="btnGerarXml" type="submit" class="btn btn-small ">XML</button>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@ switch ($_REQUEST['acao']) {
         				</div>
     				</div>  -->
 				</div>
-				<div class="col s6">
+				<div class="col m6 s12">
 					<div class="card">
     					<div class="card-content">
     						<label class="teal-text lighten-2-text">Mapped Schemas</label>

@@ -15,14 +15,14 @@ $prazoEntrega = (int)round($aDatabase['totalPf']/$settings['settings']['prodEqui
 <head>
 	<?php include_once("includes/header.php");?>
 </head>
-<body>
+<body class="teal lighten-5">
 	<?php include_once("includes/menu.php");?>
 	<?php include_once("includes/loading.php");?>
 	<main class="container light">		
 		<blockquote class="border"><a href="./">Home</a> > Project Report</blockquote>		
         <div class="row">
             <div class="col s12">
-              <ul class="tabs">
+              <ul class="tabs hoverable">
                 <li class="tab col s3 teal-text text-lighten-2"><a class="active" href="#test1">Data Project</a></li>
                 <li class="tab col s3 teal-text text-lighten-2"><a href="#test2">Tables</a></li>
                 <li class="tab col s3 teal-text text-lighten-2"><a href="#test3">Burning Down</a></li>
