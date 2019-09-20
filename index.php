@@ -127,7 +127,7 @@ if($aXML){
         if(file_exists("geradas/$xml")){
 ?>
                                                     <li class="divider"></li>													
-                                                    <li><a href="report.php?xml=<?=$xml?>" target="_blank"><i class="material-icons">info</i> Relatório do Projeto</a></li>
+                                                    <li><a href="report.php?xml=<?=$xml?>"><i class="material-icons">info</i> Relatório do Projeto</a></li>
                                                     <li><a href="geradas/<?=$xml?>/" target="_blank"><i class="material-icons tiny">open_in_browser</i> Abrir</a></li>
                                                     <li><a href="?acao=download&app=<?=$xml?>" target="_blank"><i class="material-icons tiny">cloud_download</i> Download</a></li>
 <?php

@@ -19,7 +19,7 @@ $prazoEntrega = (int)round($aDatabase['totalPf']/$settings['settings']['prodEqui
 	<?php include_once("includes/menu.php");?>
 	<?php include_once("includes/loading.php");?>
 	<main class="container light">		
-		<blockquote class="border">Kirn Report</blockquote>		
+		<blockquote class="border"><a href="./">Home</a> > Project Report</blockquote>		
         <div class="row">
             <div class="col s12">
               <ul class="tabs">
@@ -133,7 +133,6 @@ for ($i=0; $i<=$prazoEntrega; $i++){
 
 ?>
 <?php include_once("includes/js.php");?>
-<script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
 $(document).ready(function() {
 
