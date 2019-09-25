@@ -22,7 +22,7 @@ try{
         }
     }
     
-    parseClass(new Comentario());
+    //parseClass(new Comentario());
     
     
     //Util::trace($aux);
