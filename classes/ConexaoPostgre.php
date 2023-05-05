@@ -1,7 +1,7 @@
 <?php
-namespace classes;
 
-use Exception;
+
+
 /**
  * Class ConexaoPostgre | classes/Conexao.Postgre.class.php
  *

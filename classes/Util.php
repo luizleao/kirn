@@ -1,7 +1,7 @@
 <?php
-namespace classes;
 
-use Exception;
+
+
 /**
  * Class Util | classes/Util.class.php
  *

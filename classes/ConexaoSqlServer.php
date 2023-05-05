@@ -1,7 +1,7 @@
 <?php
-namespace classes;
 
-use Exception;
+
+
 /**
  * Class ConexaoSqlServer | classes/ConexaoSqlServer.class.php
  *

@@ -1,7 +1,4 @@
 <?php
-namespace classes;
-
-use mysqli;
 /**
  * Class ConexaoMySqli | classes/ConexaoMySqli.class.php
  *

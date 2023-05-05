@@ -1,5 +1,5 @@
 <?php
-namespace classes;
+
 
 use PDO, PDOException;
 /**

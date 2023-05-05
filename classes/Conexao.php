@@ -1,7 +1,4 @@
 <?php
-namespace classes;
-
-use PDO, PDOException;
 /**
  * Class Conexao | classes/Conexao.class.php
  *

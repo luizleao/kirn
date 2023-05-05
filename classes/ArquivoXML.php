@@ -1,5 +1,5 @@
 <?php
-namespace classes;
+
 /**
  * Class ArquivoXML | classes/ArquivoXML.class.php
  *

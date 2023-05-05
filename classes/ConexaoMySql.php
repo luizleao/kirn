@@ -1,5 +1,5 @@
 <?php
-namespace classes;
+
 /**
  * Class ConexaoMySql | classes/ConexaoMySql.class.php
  *

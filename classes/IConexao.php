@@ -1,5 +1,5 @@
 <?php
-namespace classes;
+
 /**
  * Class IConexao | classes/IConexao.class.php
  *

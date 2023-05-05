@@ -1,7 +1,4 @@
 <?php
-namespace classes;
-
-use RecursiveIteratorIterator, RecursiveDirectoryIterator, SimpleXMLElement;
 /**
  * Class Project | classes/Project.class.php
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Responsável pelo carregamento automatico das classes do sistema
  * 
@@ -24,8 +25,8 @@ class Autoload {
      * Método construtor
      */
     public function __construct() {
-        spl_autoload_extensions('.class.php');
-        spl_autoload_register(array($this, 'load'));    
+        spl_autoload_extensions('.php');
+        spl_autoload_register([$this, 'load']);    
     }
     
     /**
@@ -35,11 +36,13 @@ class Autoload {
      */
     private function load($className) {
         $extension = spl_autoload_extensions();
-        $aDir = ["", "/bd", "/core", "/core/model", "/core/bdbase", "/core/map"];
-        //echo __DIR__ . '/' . $className . $extension;
+        $aDir = ["", "/bd/", "/core/", "/core/model/", "/core/bdbase/", "/core/map/", "/enum/"];
         foreach($aDir as $oDir){
-            if(file_exists(__DIR__.'/'.$oDir.'/'.$className.$extension)){
-                require_once (__DIR__.'/'.$oDir.'/'.$className.$extension);
+            $classeImport = __DIR__.'/'.$oDir.$className.$extension;
+            
+            if(file_exists($classeImport)){
+                //echo $classeImport;
+                require_once ($classeImport);
                 break;
             }
         }

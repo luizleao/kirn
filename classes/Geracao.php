@@ -1,7 +1,4 @@
 <?php
-namespace classes;
-
-use Exception;
 /**
  * Class Geracao | classes/Geracao.class.php
  *
@@ -17,8 +14,7 @@ use Exception;
  *
  * @author Luiz Leão <luizleao@gmail.com>
  */
-class Geracao
-{
+class Geracao{
 
     /**
      * Nome do Projeto
@@ -138,7 +134,7 @@ class Geracao
             if (! file_exists($dir))
                 mkdir($dir);
 
-            $fp = fopen("$dir/$nomeClasse.class.php", "w");
+            $fp = fopen("$dir/$nomeClasse.php", "w");
             fputs($fp, $copiaModelo);
             fclose($fp);
         }
@@ -251,7 +247,7 @@ class Geracao
 
             // echo "@@".$dir;
 
-            $fController = fopen("$dir/Controller$nomeClasse.class.php", "w");
+            $fController = fopen("$dir/Controller$nomeClasse.php", "w");
             fputs($fController, $copiaModeloController);
             fclose($fController);
 
@@ -273,11 +269,11 @@ class Geracao
         fputs($fpConfig, $modeloConfig);
         fclose($fpConfig);
 
-        // copy(dirname(__FILE__)."/MAP.class.php", "$dir/core/MAP.class.php");
-        copy(dirname(dirname(__FILE__)) . "/templates/Controller.class.php", "$dir/Controller.class.php");
-        copy(dirname(__FILE__) . "/autoload.php", "$dir/autoload.php");
-        copy(dirname(__FILE__) . "/Util.class.php", "$dir/core/Util.class.php");
-        copy(dirname(__FILE__) . "/Conexao.class.php", "$dir/core/Conexao.class.php");
+        // copy(dirname(__FILE__)."/MAP.php", "$dir/core/MAP.php");
+        copy(dirname(dirname(__FILE__)) . "/templates/Controller.php", "$dir/Controller.php");
+        copy(dirname(__FILE__) . "/Autoload.php", "$dir/Autoload.php");
+        copy(dirname(__FILE__) . "/Util.php", "$dir/core/Util.php");
+        copy(dirname(__FILE__) . "/Conexao.php", "$dir/core/Conexao.php");
 
         return true;
     }
@@ -331,7 +327,7 @@ class Geracao
         if (! file_exists($dir))
             mkdir($dir);
 
-        $fp = fopen("$dir/ValidadorFormulario.class.php", "w");
+        $fp = fopen("$dir/ValidadorFormulario.php", "w");
         fputs($fp, $modeloFinal);
         fclose($fp);
 
@@ -415,7 +411,7 @@ class Geracao
         if (! file_exists($dir))
             mkdir($dir);
 
-        $fp = fopen("$dir/DadosFormulario.class.php", "w");
+        $fp = fopen("$dir/DadosFormulario.php", "w");
         fputs($fp, $modeloFinal);
         fclose($fp);
         return true;
@@ -1062,7 +1058,7 @@ class Geracao
             if (! file_exists($dir))
                 mkdir($dir);
 
-            $fp = fopen("$dir/$nomeClasse" . "MAP.class.php", "w");
+            $fp = fopen("$dir/$nomeClasse" . "MAP.php", "w");
             fputs($fp, $copiaModelo);
             fclose($fp);
         }
@@ -1179,7 +1175,7 @@ class Geracao
             $dir = dirname(dirname(__FILE__)) . "/geradas/" . $this->projeto . "/classes/core/bdbase";
             if (! file_exists($dir))
                 mkdir($dir);
-            $fp = fopen("$dir/$nomeClasse" . "BDBase.class.php", "w");
+            $fp = fopen("$dir/$nomeClasse" . "BDBase.php", "w");
             fputs($fp, $copiaModelo);
             fclose($fp);
         }
@@ -1219,7 +1215,7 @@ class Geracao
              * case 'Programa':
              * case 'Usuario':
              * case 'Usuariogrupo':
-             * $modeloTemp = Util::getConteudoTemplate("Modelo.$nomeClasse"."BD.class.php");
+             * $modeloTemp = Util::getConteudoTemplate("Modelo.$nomeClasse"."BD.php");
              * $copiaModelo = str_replace('%%COMPLEMENTO%%',$modeloTemp,$copiaModelo);
              * break;
              *
@@ -1231,7 +1227,7 @@ class Geracao
             $dir = dirname(dirname(__FILE__)) . "/geradas/" . $this->projeto . "/classes/bd";
             if (! file_exists($dir))
                 mkdir($dir);
-            $fp = fopen("$dir/$nomeClasse" . "BD.class.php", "w");
+            $fp = fopen("$dir/$nomeClasse" . "BD.php", "w");
             fputs($fp, $copiaModelo);
             fclose($fp);
         }

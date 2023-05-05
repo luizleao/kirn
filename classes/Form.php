@@ -1,7 +1,7 @@
 <?php
-namespace classes;
 
-use Exception;
+
+
 /**
  * Class Form | classes/Form.class.php
  *
