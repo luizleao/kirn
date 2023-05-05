@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var dadosBranco    = {host:"", login:"", senha: ""};   
-    var dadosMysql 	   = {host:"localhost", login:"root", senha:"root"};    
+    var dadosMysql 	   = {host:"localhost", login:"root", senha:"@1234567890#"};    
     var dadosSqlServer = {host:"172.16.107.88", login:"sa", senha:"cgti*2013"};    
     var dadosPostgre   = {host:"localhost", login:"postgres", senha:"postgres"};
     
