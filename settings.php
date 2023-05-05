@@ -1,7 +1,6 @@
 <?php
 require_once ("classes/Autoload.php");
 $oController = new Controller();
-
 if ($_POST) {
     echo ($oController->saveSettings()) ? "" : $oController->msg;
 }
