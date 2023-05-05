@@ -1,26 +1,25 @@
 <?php
-require_once("classes/autoload.php");
+require_once ("classes/Autoload.php");
 header('Content-type: text/json');
-//echo json_encode($_REQUEST['sgbd']); exit;
+// echo json_encode($_REQUEST['sgbd']); exit;
 
-
-switch($_REQUEST['sgbd']){
+switch ($_REQUEST['sgbd']) {
     case "mysql":
-    	$oConexao = new ConexaoMySqli('Vazia');
+        $oConexao = new ConexaoMySqli('Vazia');
         $oConexao->set_conexao($_REQUEST['host'], $_REQUEST['login'], $_REQUEST['senha']);
-    break;
-    
+        break;
+
     case "sqlserver":
         $oConexao = new ConexaoSqlServer('Vazia');
         $oConexao->set_conexao($_REQUEST['host'], $_REQUEST['login'], $_REQUEST['senha']);
-    break;
-    
+        break;
+
     case "postgre":
-    	$oConexao = new ConexaoPostgre('Vazia');
-    	$oConexao->set_conexao($_REQUEST['host'], $_REQUEST['login'], $_REQUEST['senha']);
-    break;
+        $oConexao = new ConexaoPostgre('Vazia');
+        $oConexao->set_conexao($_REQUEST['host'], $_REQUEST['login'], $_REQUEST['senha']);
+        break;
 }
-if(!$oConexao->conexao){
+if (! $oConexao->conexao) {
     $retorno = false;
 } else {
     $retorno = $oConexao->databases();

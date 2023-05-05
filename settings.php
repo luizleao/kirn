@@ -1,8 +1,8 @@
-<?php 
-require_once("classes/autoload.php");
-$oController  = new Controller();
+<?php
+require_once ("classes/Autoload.php");
+$oController = new Controller();
 
-if($_POST){
+if ($_POST) {
     echo ($oController->saveSettings()) ? "" : $oController->msg;
 }
 ?>
@@ -15,25 +15,23 @@ if($_POST){
 	<?php include_once("includes/menu.php");?>
 	<?php include_once("includes/loading.php");?>
 	<main class=" container light">
-        <blockquote class="border">
-    		Settings 
-        </blockquote>
-        <form role="form" onsubmit="return false;">
-             <div class="row">
-                <div class="col s4">
-                    <div class="input-field">
-                        <input type="text" name="prodEquipe" id="prodEquipe" value=""  />    
-                        <label for="prodEquipe">Produtividade Média da Equipe (PF/Dia)</label>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="input-field">
-                        <input type="text" name="valorPf" id="valorPf" value=""  />    
-                        <label for="valorPf">Valor do Ponto de Função (R$)</label>
-                    </div>
-                </div>
-             </div>
-<!--              
+		<blockquote class="border">Settings</blockquote>
+		<form role="form" onsubmit="return false;">
+			<div class="row">
+				<div class="col s4">
+					<div class="input-field">
+						<input type="text" name="prodEquipe" id="prodEquipe" value="" /> <label
+							for="prodEquipe">Produtividade Média da Equipe (PF/Dia)</label>
+					</div>
+				</div>
+				<div class="col s4">
+					<div class="input-field">
+						<input type="text" name="valorPf" id="valorPf" value="" /> <label
+							for="valorPf">Valor do Ponto de Função (R$)</label>
+					</div>
+				</div>
+			</div>
+			<!--              
              <blockquote class="border">
     		Características Gerais de Sistema (CGS)
         	</blockquote>
@@ -236,14 +234,20 @@ if($_POST){
                 </div>
             </div>
 -->
-            <div class="row">
-                <div class="form-actions">
-                    <button id="btnCadastrar" type="submit" class="btn btn-small tooltipped" data-position="top" data-tooltip="Save"><i class="material-icons">save</i> </button>
-                    <a class="btn btn-small tooltipped" href="admPessoa.php" data-position="top" data-tooltip="Back"><i class="material-icons">arrow_back</i> </a>
-                </div>
-            </div>
-        </form>
-    </main>
+			<div class="row">
+				<div class="form-actions">
+					<button id="btnCadastrar" type="submit"
+						class="btn btn-small tooltipped" data-position="top"
+						data-tooltip="Save">
+						<i class="material-icons">save</i>
+					</button>
+					<a class="btn btn-small tooltipped" href="admPessoa.php"
+						data-position="top" data-tooltip="Back"><i class="material-icons">arrow_back</i>
+					</a>
+				</div>
+			</div>
+		</form>
+	</main>
 	<?php include_once("includes/footer.php");?>
 	<?php include_once("includes/modals.php");?>
 	<?php include_once("includes/js.php");?>
