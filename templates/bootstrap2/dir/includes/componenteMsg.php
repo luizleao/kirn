@@ -1,11 +1,11 @@
-<?php 
-switch($tipo){
-	case "erro":
-		$tipo = "alert-error";
-	break;
-	case "sucesso":
-		$tipo = "alert-success";
-	break;
+<?php
+switch ($tipo) {
+    case "erro":
+        $tipo = "alert-error";
+        break;
+    case "sucesso":
+        $tipo = "alert-success";
+        break;
 }
 ?>
 <div class="alert alert-block <?=$tipo?> fade in">

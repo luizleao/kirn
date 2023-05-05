@@ -4,7 +4,7 @@
 		<a href="#" data-target="menuMobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
 			%%MODELO_MENU%%
-			<li><a class="dropdown-trigger" href="#" data-target="Sobre"><i class="material-icons left">person_outline</i><?=$_SESSION['usuarioAtual']['login']?><i class="material-icons right">arrow_drop_down</i></a></li>
+			<li><a class="dropdown-trigger" href="#" data-target="Sobre"><i class="material-icons left">person_outline</i><?=(isset($_SESSION['usuarioAtual']['login'])) ? $_SESSION['usuarioAtual']['login'] : ""?><i class="material-icons right">arrow_drop_down</i></a></li>
 			<ul id="Sobre" class="dropdown-content">
 				<li><a href="#">Alterar Senha</a></li>
 				<li><a href="#modalSobre" class="modal-trigger">Sobre</a></li>

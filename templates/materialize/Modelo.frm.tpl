@@ -2,7 +2,7 @@
 require_once("classes/autoload.php");
 $oController = new Controller%%NOME_CLASSE%%();
 
-$o%%NOME_CLASSE%% = ($_REQUEST['%%ID_PK%%'] == "") ? NULL        : $oController->get($_REQUEST['%%ID_PK%%']);
+$o%%NOME_CLASSE%% = (isset($_REQUEST['%%ID_PK%%'])) ? $oController->get($_REQUEST['%%ID_PK%%']) : NULL;
 $label   = (is_null($o%%NOME_CLASSE%%)) ? "Cadastrar" : "Editar";
 
 if($_POST){
@@ -22,8 +22,11 @@ if($_POST){
 	<?php include_once("includes/loading.php");?>
     <main class="container light">
     	<blockquote class="border">
-    		<a href="home.php">Home</a> <i class="material-icons">chevron_right</i>
-    	 	<a href="adm%%NOME_CLASSE%%.php">%%NOME_CLASSE%%</a> <i class="material-icons">chevron_right</i> <?=$label?>
+    		<a href="home.php">Home</a> 
+    		<i class="material-icons">chevron_right</i>
+    	 	<a href="adm%%NOME_CLASSE%%.php">%%NOME_CLASSE%%</a> 
+    	 	<i class="material-icons">chevron_right</i> 
+    	 	<?=$label?>
     	</blockquote>
 <?php 
 if($oController->msg != "")

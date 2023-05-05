@@ -1,4 +1,7 @@
 <!-- Static navbar -->
+<?php
+//Util::trace($_SESSION['usuarioAtual']);
+?>
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -16,7 +19,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="glyphicon glyphicon-user"></i> <?=$_SESSION['usuarioAtual']['login']?> <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="glyphicon glyphicon-user"></i> <? //=$_SESSION['usuarioAtual']['login']?> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="frmAlterarSenha.php">Alterar Senha</a></li>
                         <li class="divider"></li>

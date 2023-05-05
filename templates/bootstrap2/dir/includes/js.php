@@ -1,5 +1,5 @@
 <!-- JS -->
-<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script> 
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 
 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  -->
 
@@ -8,8 +8,10 @@
 <script type="text/javascript" src="js/comum.js"></script>
 <script type="text/javascript" src="js/crud.js"></script>
 
-<script type="text/javascript" src="bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="bootstrap-datetimepicker/locales/bootstrap-datetimepicker.pt-BR.js"></script>
+<script type="text/javascript"
+	src="bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript"
+	src="bootstrap-datetimepicker/locales/bootstrap-datetimepicker.pt-BR.js"></script>
 
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>

@@ -9,7 +9,6 @@
 		// recebe dados do formulario
 		$post = DadosFormulario::form%%NOME_CLASSE%%($post);
 		
-		$_SESSION["post"] = $post;
 		// valida dados do formulario
 		$oValidador = new ValidadorFormulario();
 		if(!$oValidador->validaForm%%NOME_CLASSE%%($post)){
@@ -17,7 +16,8 @@
 			return false;
 		}
 		// cria variaveis para validacao com as chaves do array
-		foreach($post as $i => $v) $$i = utf8_encode($v);
+		foreach($post as $i => $v) 
+			$$i = mb_convert_encoding($v ?? "", 'UTF-8', 'ISO-8859-1');
 		// cria objeto para grava-lo no BD
 		%%MONTA_OBJETO%%
 		%%MONTA_OBJETOBD%%
@@ -25,6 +25,6 @@
 			$this->msg = $o%%NOME_CLASSE%%BD->msg;
 			return false;
 		}
-		unset($_SESSION["post"]);
+
 		return true;
 	}

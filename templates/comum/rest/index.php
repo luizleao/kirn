@@ -1,54 +1,57 @@
 <?php
-// Pasta Comum
-require_once("../classes/autoload.php");
+require_once ("../classes/autoload.php");
 
-if(preg_match("#^.*/rest/(.*?)/(\d+)/?$#is", $_SERVER['REQUEST_URI'], $aux)){
-    $aParam['classe'] = $aux[1];
-    $aParam['id'] = $aux[2];
-}
+// print $_SERVER['REQUEST_URI'];
 
-elseif(preg_match("#^.*/rest/(.*?)/?$#is", $_SERVER['REQUEST_URI'], $aux)){
-    $aParam['classe'] = $aux[1];
+if (preg_match("#^.*/rest/(.*?)/!/(.*?)/?$#is", $_SERVER['REQUEST_URI'], $retornoux)) {
+    $retornoParam['classe'] = $retornoux[1];
+    $retornoParam['texto'] = $retornoux[2];
+    $retornoParam['consulta'] = true;
+} 
+elseif (preg_match("#^.*/rest/(.*?)/(\d+)/?$#is", $_SERVER['REQUEST_URI'], $retornoux)) {
+    $retornoParam['classe'] = $retornoux[1];
+    $retornoParam['id'] = $retornoux[2];
+} 
+elseif (preg_match("#^.*/rest/(.*?)/?$#is", $_SERVER['REQUEST_URI'], $retornoux)) {
+    $retornoParam['classe'] = $retornoux[1];
 } else {
     die('Nenhum padrao encontrado');
 }
 
-//Util::trace($aParam);
+// Util::trace($retornoParam);
 
-try{
-    $exec = "\$oController = new Controller{$aParam['classe']}();\n";
-    
-    switch($_SERVER['REQUEST_METHOD']){
+$exec = "\$oController = new Controller{$retornoParam['classe']}();\n";
+
+try {
+    switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
-            if(isset($aParam['id']))
-                $exec .= "\$a = \$oController->get({$aParam['id']});\n";
-                else
-                    $exec .= "\$a = \$oController->getAll();\n";
-                    break;
-                    
+
+            if ($retornoParam['consulta'] == true) {
+                $exec .= "\$retorno = \$oController->consultar('" . urldecode($retornoParam['texto']) . "');\n";
+                // print $exec;
+            } else {
+                $exec .= (isset($retornoParam['id'])) ? "\$retorno = \$oController->get({$retornoParam['id']});\n" : "\$retorno = \$oController->getAll();\n";
+            }
+            break;
+
         case 'POST':
             $post = json_decode(file_get_contents("php://input"), true);
-            $exec .= "\$a = \$oController->cadastrar(\$post);\n";
+            $exec .= "\$retorno = \$oController->cadastrar(\$post);\n";
             break;
-            
+
         case 'PUT':
-            $post = json_decode(file_get_contents("php://input"), true);
-            //Util::trace($post);exit;
-            $exec .= "\$a = \$oController->alterar(\$post);\n";
+            $post = unserialize(file_get_contents("php://input"));
+            $exec .= "\$retorno = \$oController->alterar(\$post);\n";
             break;
-            
+
         case 'DELETE':
-            $exec .= "\$a = \$oController->excluir({$aParam['id']});\n";
+            $exec .= "\$retorno = \$oController->excluir({$retornoParam['id']});\n";
             break;
     }
-    
-    //print $exec;
-    
-    if(!eval($exec)){
-        throw new Exception("Falha na execução do WS");
-    }
-} catch(Exception $e){
-    $a = $e->getMessage();
+    // print "$exec";
+    eval($exec);
+} catch (Exception $e) {
+    $retorno = $e->getMessage();
 }
-header("content-type: application/json");
-echo json_encode($a);
+header("content-type: application/json; charset=UTF-8");
+echo json_encode($retorno);

@@ -1,23 +1,28 @@
-<?php 
-$textoHora = ($hora) ? "%d/%m/%Y %H:%M:%S" : "%d/%m/%Y";
-$size = ($hora) ? 21 : 10;
+<?php
+$textoHora = ($hora) ? "hh:mm:dd" : "";
 ?>
-<div class="row">
-    <div class="col-md-10">
-    	<div class="input-group mb-2">
-			<input name="<?=$nomeCampo;?>" value="<?=$valorInicial?>" type="text" id="<?=$nomeCampo;?>" size="<?=$size?>" class="form-control" <?=$complemento?> />
-			<span class="input-group-append">
-				<button id="btnData<?=$nomeCampo;?>" class="btn btn-outline-secondary" type="submit"><i class="icon ion-md-calendar"></i></button>
-			</span>
-		</div>
-    </div>
+
+<div class="form-group">
+	<div class="input-group" id="dp<?=$nomeCampo?>">
+		<input type="text" class="form-control" name="<?=$nomeCampo?>" value="<?=$valorInicial?>" required/>
+		<div class="input-group-addon input-group-append">
+            <div class="input-group-text">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+            </div>
+        </div>
+	</div>
 </div>
-<script type="text/javascript">
-Calendar.setup({
-    inputField : "<?=$nomeCampo;?>",
-    trigger    : "btnData<?=$nomeCampo;?>",
-    onSelect   : function() { this.hide();},
-    showTime   : 24,
-    dateFormat : "<?=$textoHora?>"
-});
+<script>
+(function($){
+    $(function() {
+    	$('#dp<?=$nomeCampo?>').datetimepicker({
+    	    locale: 'pt-br',
+            "allowInputToggle": true,
+            "showClose": true,
+            "showClear": true,
+            "showTodayButton": true,
+            "format": "DD/MM/YYYY<?=($hora) ? " hh:mm:ss A" : ""?>",
+        });
+    });
+})(jQuery);
 </script>

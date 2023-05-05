@@ -1,7 +1,7 @@
 <?php
-switch($tipo){
+switch ($tipo) {
     case "erro":
-        $tipo = "alert-error";
+        $tipo = "alert-danger";
         $tipo_ico = "error";
         break;
     case "sucesso":
@@ -19,8 +19,10 @@ switch($tipo){
 }
 ?>
 <div class="alert <?=$tipo?> alert-dismissible fade show" role="alert">
-    <h6><img src="img/ico_<?=$tipo_ico?>.png" /> <?=$msg?></h6>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    	<span aria-hidden="true">&times;</span>
-    </button>
+	<h6>
+		<img src="img/ico_<?=$tipo_ico?>.png" /> <?=$msg?></h6>
+	<button type="button" class="close" data-dismiss="alert"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>

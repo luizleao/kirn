@@ -10,7 +10,7 @@
 			%%MODELO_MENU%%
 			<li class="nav-item dropdown">
 				<a class="nav-item nav-link dropdown-toggle" href="#" id="Usuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				  <i class="icon ion-md-person"></i> <?=$_SESSION['usuarioAtual']['login']?> <span class="caret"></span>
+				  <i class="icon ion-md-person"></i> <?=$_SESSION['usuarioAtual']['login'] ?? NULL ?> <span class="caret"></span>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="Usuario">
 					<a class="dropdown-item" href="frmAlterarSenha.php"><i class="icon ion-md-key"></i> Alterar Senha</a>

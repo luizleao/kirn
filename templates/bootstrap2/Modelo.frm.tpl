@@ -2,7 +2,7 @@
 require_once("classes/autoload.php");
 $oController = new Controller%%NOME_CLASSE%%();
 
-$o%%NOME_CLASSE%% = ($_REQUEST['%%ID_PK%%'] == "") ? NULL        : $oController->get($_REQUEST['%%ID_PK%%']);
+$o%%NOME_CLASSE%% = (isset($_REQUEST['%%ID_PK%%'])) ? $oController->get($_REQUEST['%%ID_PK%%']) : NULL;
 $label   = (is_null($o%%NOME_CLASSE%%)) ? "Cadastrar" : "Editar";
 
 if($_POST){
@@ -20,6 +20,9 @@ if($_POST){
 <body>
     <div id="wrap">
         <?php require_once("includes/menu.php");?>
+        <br />
+        <br />
+        <br />
         <div class="container">
             <?php require_once("includes/titulo.php"); ?>
             <ul class="breadcrumb">

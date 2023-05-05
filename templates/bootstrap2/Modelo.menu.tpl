@@ -11,7 +11,7 @@
 				<li class="divider-vertical"></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img id="imgUser" class="img-responsive img-circle" style="max-width: 12%" /> <span id="nameUser"></span>
+						<img id="imgUser" class="img-responsive img-circle" style="max-width: 12%" /> <i class="icon-user"></i>
 						<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">

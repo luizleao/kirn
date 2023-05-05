@@ -2,7 +2,7 @@
 require_once("classes/autoload.php");
 $oController = new Controller%%NOME_CLASSE%%();
 
-$o%%NOME_CLASSE%% = ($_REQUEST['%%ID_PK%%'] == "") ? NULL        : $oController->get($_REQUEST['%%ID_PK%%']);
+$o%%NOME_CLASSE%% = (!isset($_REQUEST['%%ID_PK%%'])) ? NULL : $oController->get($_REQUEST['%%ID_PK%%']);
 $label   = (is_null($o%%NOME_CLASSE%%)) ? "Cadastrar" : "Editar";
 
 if($_POST){
@@ -18,7 +18,7 @@ if($_POST){
     <?php require_once("includes/header.php");?>
 </head>
 <body>
-    <div class="container">
+    <div id="app" class="container">
         <?php 
         require_once("includes/titulo.php"); 
         require_once("includes/menu.php"); 
@@ -50,5 +50,14 @@ if($oController->msg != "")
     </div>
     <?php require_once("includes/footer.php")?>
     <?php require_once("includes/modals.php");?>
+    <script>
+    //Vue.config.devtools = true;
+    var app = new Vue({
+		el: '#app',
+		data: {
+			classe: ''
+		}
+	});
+    </script>
 </body>
 </html>

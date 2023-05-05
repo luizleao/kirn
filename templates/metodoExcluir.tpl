@@ -2,12 +2,12 @@
 	 * Excluir %%NOME_CLASSE%%
 	 *
 	 * @access public
-	 * @param integer $id%%NOME_CLASSE%%
+%%DOC_LISTA_PK%%
 	 * @return bool
 	 */
-	public function excluir($id%%NOME_CLASSE%%){		
+	public function excluir(%%LISTA_PK%%){		
 		%%MONTA_OBJETOBD%%		
-		if(!$o%%NOME_CLASSE%%BD->excluir($id%%NOME_CLASSE%%)){
+		if(!$o%%NOME_CLASSE%%BD->excluir(%%LISTA_PK%%)){
 			$this->msg = $o%%NOME_CLASSE%%BD->msg;
 			return false;	
 		}		

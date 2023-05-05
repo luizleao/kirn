@@ -3,7 +3,7 @@ require_once("classes/autoload.php");
 $oController = new Controller%%NOME_CLASSE%%();
 $numPags = $oController->numeroPaginasConsulta($oController->totalColecao());
 
-if($_REQUEST['acao'] == 'excluir'){
+if(isset($_REQUEST['acao']) && $_REQUEST['acao'] == 'excluir'){
     print ($oController->excluir(%%PK_REQUEST%%)) ? "" : $oController->msg; exit;
 }
 if(!isset($_REQUEST['pag'])) $_REQUEST['pag'] = 1;
@@ -19,13 +19,19 @@ $a%%NOME_CLASSE%% = ($_POST) ? $oController->consultar($_REQUEST['txtConsulta'])
 <body>
 	<?php include_once("includes/menu.php");?>
 	<?php include_once("includes/loading.php");?>
-	<main class="container light">
-		<blockquote class="border"><a href="home.php">Home</a> <i class="material-icons">chevron_right</i> %%NOME_CLASSE%% <i class="material-icons">chevron_right</i> Administrar</blockquote>
+	<main class="container">
+		<blockquote class="border">
+    		<a href="home.php">Home</a> 
+    		<i class="material-icons">chevron_right</i>
+    	 	<a href="#!">%%NOME_CLASSE%%</a> 
+    	 	<i class="material-icons">chevron_right</i> 
+    	 	Administrar
+    	</blockquote>
 		<form action="" method="post">
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">search</i>
-					<input name="txtConsulta" class="" id="txtConsulta" type="text" placeholder="Pesquisar %%NOME_CLASSE%%" value="<?=$_REQUEST['txtConsulta']?>" autofocus />
+					<input name="txtConsulta" class="" id="txtConsulta" type="text" placeholder="Pesquisar %%NOME_CLASSE%%" value="<?=$_REQUEST['txtConsulta'] ?? null ?>" autofocus />
 				</div>
 			</div>
 		</form>

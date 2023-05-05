@@ -1,7 +1,7 @@
 <?php
 class %%NOME_CLASSE%%MAP {
-	static function getMetaData() {
-		return %%ARRAY_CAMPOS%%;
+	static function getMetaData($alias="%%NOME_TABELA%%") {
+		return array_merge(%%ARRAY_CAMPOS%%);
 	}
 
 	static function dataToSelect() {

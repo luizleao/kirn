@@ -3,7 +3,7 @@ require_once("classes/autoload.php");
 $oController = new Controller%%NOME_CLASSE%%();
 $numPags = $oController->numeroPaginasConsulta($oController->totalColecao());
 
-if($_REQUEST['acao'] == 'excluir'){
+if(isset($_REQUEST['acao']) && $_REQUEST['acao'] == 'excluir'){
     print ($oController->excluir(%%PK_REQUEST%%)) ? "" : $oController->msg; exit;
 }
 if(!isset($_REQUEST['pag'])) $_REQUEST['pag'] = 1;
@@ -19,6 +19,8 @@ $a%%NOME_CLASSE%% = ($_POST) ? $oController->consultar($_REQUEST['txtConsulta'])
 <body>
     <div id="wrap">
         <?php require_once("includes/menu.php");?>
+        <br />
+        <br />
         <div class="container">
             <?php require_once("includes/titulo.php"); ?>
             <ul class="breadcrumb">
@@ -29,7 +31,7 @@ $a%%NOME_CLASSE%% = ($_POST) ? $oController->consultar($_REQUEST['txtConsulta'])
 	            <div class="row">
 	            	<div class="span12">
 			            <div class="input-append">
-							<input type="text" class="span8" id="txtConsulta" name="txtConsulta" placeholder="Pesquisar %%NOME_CLASSE%%" value="<?=$_REQUEST['txtConsulta']?>" autofocus />
+							<input type="text" class="span8" id="txtConsulta" name="txtConsulta" placeholder="Pesquisar %%NOME_CLASSE%%" value="<?=$_REQUEST['txtConsulta'] ?? NULL ?>" autofocus />
 							<button class="btn btn-primary" type="submit"><i class="icon-white icon-search"></i></button>
 							<a href="frm%%NOME_CLASSE%%.php" class="btn btn-success" title="Cadastrar"><i class="icon-white icon-plus"></i></a>
 						</div>

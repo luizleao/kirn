@@ -1,7 +1,7 @@
 <?php
-require_once("classes/autoload.php");
+require_once ("classes/Autoload.php");
 
-foreach($_POST as $campo=>$valor){
+foreach ($_POST as $campo => $valor) {
     $$campo = trim($valor);
 }
 $oController = new Controller();

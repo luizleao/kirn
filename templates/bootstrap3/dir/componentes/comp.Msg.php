@@ -1,5 +1,5 @@
 <?php
-switch($tipo){
+switch ($tipo) {
     case "erro":
         $tipo = "alert-danger";
         $tipo_ico = "error";
@@ -19,6 +19,8 @@ switch($tipo){
 }
 ?>
 <div class="alert alert-dismissible fade in <?=$tipo?>">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-    <h5 class="alert-heading"><img src="img/ico_<?=$tipo_ico?>.png" /> <?=$msg?></h5>
+	<button type="button" class="close" data-dismiss="alert"
+		aria-label="Close">×</button>
+	<h5 class="alert-heading">
+		<img src="img/ico_<?=$tipo_ico?>.png" /> <?=$msg?></h5>
 </div>

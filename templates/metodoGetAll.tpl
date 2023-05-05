@@ -7,7 +7,7 @@
      * @param integer $pagina Numero da Pagina 
 	 * @return %%NOME_CLASSE%%[]
 	 */
-	public function getAll($aFiltro = NULL, $aOrdenacao = NULL, $pagina=NULL){
+	public function getAll($aFiltro=[], $aOrdenacao=[], $pagina=NULL){
 		try{		
 			%%MONTA_OBJETOBD%%
 			$aux = $o%%NOME_CLASSE%%BD->getAll($aFiltro, $aOrdenacao, $this->config['producao']['qtdRegPag'], $pagina);

@@ -4,7 +4,7 @@ require_once("classes/autoload.php");
 $oController = new Controller%%NOME_CLASSE%%();
 $numPags = $oController->numeroPaginasConsulta($oController->totalColecao());
 
-if($_REQUEST['acao'] == 'excluir'){
+if(isset($_REQUEST['acao']) && $_REQUEST['acao'] == 'excluir'){
     print ($oController->excluir(%%PK_REQUEST%%)) ? "" : $oController->msg; exit;
 }
 if(!isset($_REQUEST['pag'])) $_REQUEST['pag'] = 1;
@@ -29,7 +29,7 @@ $a%%NOME_CLASSE%% = ($_POST) ? $oController->consultar($_REQUEST['txtConsulta'])
 			<div class="row">
 				<div class="col-md-6">
 					<div class="input-group h2">
-					<input name="txtConsulta" class="form-control input-sm" id="txtConsulta" type="text" placeholder="Pesquisar %%NOME_CLASSE%%" value="<?=$_REQUEST['txtConsulta']?>" autofocus />
+					<input name="txtConsulta" class="form-control input-sm" id="txtConsulta" type="text" placeholder="Pesquisar %%NOME_CLASSE%%" value="<?=$_REQUEST['txtConsulta'] ?? NULL ?>" autofocus />
 					<span class="input-group-btn">
 						<button class="btn btn-primary btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 						<a href="frm%%NOME_CLASSE%%.php" class="btn btn-success btn-sm" title="Cadastrar %%NOME_CLASSE%%"><i class="glyphicon glyphicon-plus"></i></a>

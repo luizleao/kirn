@@ -1,4 +1,4 @@
-<label>%%CAMPO%%</label>
+<label>Sexo</label>
 <div class="radio">
     <label>
         <input type="radio" name="%%CAMPO%%" id="%%CAMPO%%M" value="M" %%VALOR_MASCULINO%% /> Masculino

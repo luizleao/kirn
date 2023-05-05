@@ -1,13 +1,15 @@
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+	position: relative;
+	min-height: 100%;
 }
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
 }
+
 .footer {
 	position: absolute;
 	bottom: 0;
@@ -18,23 +20,22 @@ body {
 	border-top: 1px solid #DDDDDD;
 }
 
-
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
-
-body > .container {
-  padding: 10px 15px 0;
+body>.container {
+	padding: 10px 15px 0;
 }
+
 .container .text-muted {
-  margin: 20px 0;
+	margin: 20px 0;
 }
 
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
+.footer>.container {
+	padding-right: 15px;
+	padding-left: 15px;
 }
 
 code {
-  font-size: 80%;
+	font-size: 80%;
 }
