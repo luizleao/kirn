@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Class Util | classes/Util.class.php
  *

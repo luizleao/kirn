@@ -71,14 +71,10 @@ class ConexaoMySqli implements IConexao
     /**
      * Seleciona a conexão com o SGBD
      *
-     * @param string $host
-     *            Endereço do servidor
-     * @param string $user
-     *            Usuário do banco
-     * @param string $senha
-     *            Senha do banco
-     * @param string $bd
-     *            Banco de dados selecionado
+     * @param string $host Endereço do servidor
+     * @param string $user Usuário do banco
+     * @param string $senha Senha do banco
+     * @param string $bd Banco de dados selecionado
      * @return void
      */
     function set_conexao($host, $user, $senha, $bd = NULL)

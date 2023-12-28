@@ -1,7 +1,6 @@
 <?php
 
-
-use Exception, ZipArchive, RecursiveIteratorIterator, RecursiveDirectoryIterator;
+//use Exception, ZipArchive, RecursiveIteratorIterator, RecursiveDirectoryIterator;
 /**
  * Class Controller | classes/Controller.class.php
  *
@@ -63,10 +62,9 @@ class Controller
 
         if ($oConexao->conexao) {
             return $oConexao;
-        } else {
-            $this->msg = "Ocorreu o seguinte erro: " . $oConexao->msg;
-            return false;
         }
+        $this->msg = "Ocorreu o seguinte erro: " . $oConexao->msg;
+        return false;
     }
 
     /**

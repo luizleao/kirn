@@ -9,7 +9,7 @@ class Controller
 
     function __construct()
     {
-        session_start();
+        @session_start();
         $this->config = parse_ini_file(dirname(__FILE__) . "/core/config.ini", true);
 
         /*
@@ -30,8 +30,8 @@ class Controller
     /**
      * Retorna o numero total de páginas de uma consulta
      *
-     * @param number $total
-     * @return number
+     * @param int $total
+     * @return int
      */
     public function numeroPaginasConsulta($total)
     {

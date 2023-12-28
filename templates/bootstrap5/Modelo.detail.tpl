@@ -10,7 +10,7 @@ $o%%NOME_CLASSE%% = $oController->get($_REQUEST['id']);
 <body>
     <div class="container-fluid">
 		<fieldset>
-			<legend>Detalhes %%NOME_CLASSE%% <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></legend>
+			<legend>Detalhes %%NOME_CLASSE%%</legend>
 		%%ATRIBUICAO%%
 		</fieldset>
     </div>
