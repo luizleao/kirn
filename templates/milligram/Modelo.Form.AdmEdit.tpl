@@ -1,0 +1,1 @@
+<td><a class="button" href="frm%%CLASSE%%.php?%%ID_PK%%=<?=$o%%CLASSE%%->%%PK%%;?>" title="Editar">Editar</a></td>
