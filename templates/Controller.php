@@ -13,17 +13,17 @@ class Controller
         $this->config = parse_ini_file(dirname(__FILE__) . "/core/config.ini", true);
 
         /*
-         * header("content-type: text/html; charset=UTF-8", true);
-         * if(!preg_match("#index#is", $_SERVER['REQUEST_URI'])){
-         * if(!isset($_SESSION['usuarioAtual'])){
-         * echo "
-         * <script>
-         * alert('Sessão expirou');
-         * window.location='index.php';
-         * </script>";
-         * exit;
-         * }
-         * }
+         header("content-type: text/html; charset=UTF-8", true);
+         if(!preg_match("#index#is", $_SERVER['SCRIPT_NAME'])){
+             if(!isset($_SESSION['usuarioAtual'])){
+                 echo "
+                         <script>
+                         alert('Sessão expirou');
+                         window.location='index.php';
+                         </script>";
+                 exit;
+             }
+         }
          */
     }
 
@@ -48,29 +48,29 @@ class Controller
     function autenticaUsuario()
     {
         /*
-         * foreach($_POST as $campo=>$valor){
-         * $$campo = trim($valor);
-         * }
-         * $oUsuarioBD = new UsuarioBD();
-         * $oSeguranca = $this->get_seguranca();
-         * $oUsuario = $oUsuarioBD->autenticaUsuario($login, md5($senha));
-         * if(!$oUsuario){
-         * $this->msg = $oUsuarioBD->msg;
-         * return false;
-         * }
-         *
-         * $_SESSION['usuarioAtual'] = $oUsuario;
-         * //print "<pre>"; print_r($oUsuario); print "</pre>";
-         * // ========== Carregando Coleção dos Grupos do Usuário ==========
-         * //print_r($this->getAllGruposUsuario($resultado->get_idUsuario()));
-         * $_SESSION['aGrupoUsuario'] = $oSeguranca->getAllGruposUsuario($oUsuario->oPessoa->idPessoa);
-         * if(count($_SESSION['aGrupoUsuario']) > 0){
-         * $_SESSION['aMenu'] = $oSeguranca->menuUsuario($_SESSION['aGrupoUsuario']);
-         * } else {
-         * $this->msg = "Nenhum dado de permissão de acesso cadastrado";
-         * return false;
-         * }
-         * unset($oUsuario);
+         foreach($_POST as $campo=>$valor){
+            $$campo = trim($valor);
+         }
+         $oUsuarioBD = new UsuarioBD();
+         $oSeguranca = $this->get_seguranca();
+         $oUsuario = $oUsuarioBD->autenticaUsuario($login, md5($senha));
+         if(!$oUsuario){
+             $this->msg = $oUsuarioBD->msg;
+             return false;
+         }
+         
+         $_SESSION['usuarioAtual'] = $oUsuario;
+         //print "<pre>"; print_r($oUsuario); print "</pre>";
+         // ========== Carregando Coleção dos Grupos do Usuário ==========
+         //print_r($this->getAllGruposUsuario($resultado->get_idUsuario()));
+         $_SESSION['aGrupoUsuario'] = $oSeguranca->getAllGruposUsuario($oUsuario->oPessoa->idPessoa);
+         if(count($_SESSION['aGrupoUsuario']) > 0){
+            $_SESSION['aMenu'] = $oSeguranca->menuUsuario($_SESSION['aGrupoUsuario']);
+         } else {
+             $this->msg = "Nenhum dado de permissão de acesso cadastrado";
+             return false;
+         }
+         unset($oUsuario);
          */
         return true;
     }

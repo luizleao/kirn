@@ -1,2 +1,1 @@
-<input type="text" class="datepicker" name="<?=$nomeCampo?>"
-	id="<?=$nomeCampo?>" value="<?=$valorInicial?>" <?=$complemento?> />
+<input type="date" class="date" name="<?=$nomeCampo?>" id="<?=$nomeCampo?>" value="<?=$valorInicial?>" <?=$complemento?> />

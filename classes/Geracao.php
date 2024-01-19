@@ -54,7 +54,7 @@ class Geracao{
 
         $this->projeto = $projeto;
         $file = file($xml);
-        $this->xml = join("", $file);
+        $this->xml = implode("", $file);
         $this->gui = $gui;
 
         if ($projeto != NULL) {
@@ -119,9 +119,9 @@ class Geracao{
             }
 
             # Monta demais valores a serem substituidos
-            $atributos = join("\n", $aAtributo);
-            $listaAtributos = join(", ", $aListaAtributo);
-            $atribuicao = join("\n", $aAtribuicao);
+            $atributos = implode("\n", $aAtributo);
+            $listaAtributos = implode(", ", $aListaAtributo);
+            $atribuicao = implode("\n", $aAtribuicao);
 
             # Substitui todas os parametros pelas variaveis ja processadas
             $copiaModelo = str_replace('%%NOME_CLASSE%%', $nomeClasse, $copiaModelo);
@@ -182,8 +182,8 @@ class Geracao{
             }
 
             # Montar a Lista de DOC do metodo selecionar
-            $listaPKDoc = join("\n", $aPKDoc);
-            $listaPK = join(",", $aPK);
+            $listaPKDoc = implode("\n", $aPKDoc);
+            $listaPK = implode(",", $aPK);
 
             # Recupera o nome da tabela e gera os valores a serem gerados
             $nomeClasse = ucfirst($this->getCamelMode($aTabela['name']));
@@ -312,7 +312,7 @@ class Geracao{
                 $camposForm[] = ((string) $oCampo['pk'] == 'true') ? "if(\$acao == 2){\n\t\t\tif(\$$nomeCampoOriginal == ''){\n\t\t\t\t\$this->msg = \"$label inválido!\";\n\t\t\t\treturn false;\n\t\t\t}\n\t\t}" : "if(\$$nomeCampoOriginal == ''){\n\t\t\t\$this->msg = \"$label inválido!\";\n\t\t\treturn false;\n\t\t}\t";
             }
             # monta demais valores a serem substituidos
-            $camposForm = join("\n\t\t", $camposForm);
+            $camposForm = implode("\n\t\t", $camposForm);
 
             # substitui todas os parametros pelas variaveis já processadas
             $copiaModelo2 = str_replace('%%NOME_CLASSE%%', $nomeClasse, $copiaModelo2);
@@ -321,7 +321,7 @@ class Geracao{
             $aModeloFinal[] = $copiaModelo2;
         }
 
-        $modeloFinal = str_replace('%%FUNCOES%%', join("\n\n", $aModeloFinal), $copiaModelo1);
+        $modeloFinal = str_replace('%%FUNCOES%%', implode("\n\n", $aModeloFinal), $copiaModelo1);
 
         $dir = dirname(dirname(__FILE__)) . "/geradas/" . $this->projeto . "/classes";
         if (! file_exists($dir))
@@ -387,13 +387,13 @@ class Geracao{
                                 else
                                     $camposForm[] = "if(\$acao == 2){\n\t\t\t\$post[\"$nomeCampoOriginal\"] = strip_tags(addslashes(trim(\$post[\"$nomeCampoOriginal\"] ?? \"\")));\n\t\t}";
                             else
-                                $camposForm[] = "\$post[\"$nomeCampoOriginal\"] = strip_tags(addslashes(trim(\$post[\"$nomeCampoOriginal\" ?? \"\"])));";
+                                $camposForm[] = "\$post[\"$nomeCampoOriginal\"] = strip_tags(addslashes(trim(\$post[\"$nomeCampoOriginal\"] ?? \"\")));";
                         }
                         break;
                 }
             }
             # monta demais valores a serem substituidos
-            $camposForm = join("\n\t\t", $camposForm);
+            $camposForm = implode("\n\t\t", $camposForm);
 
             # substitui todas os parametros pelas variaveis ja processadas
             $copiaModelo2 = str_replace('%%NOME_CLASSE%%', $nomeClasse, $copiaModelo2);
@@ -405,7 +405,7 @@ class Geracao{
 
         // Util::trace($aModeloFinal);
 
-        $modeloFinal = str_replace('%%FUNCOES%%', join("\n\n", $aModeloFinal), $copiaModelo1);
+        $modeloFinal = str_replace('%%FUNCOES%%', implode("\n\n", $aModeloFinal), $copiaModelo1);
 
         $dir = dirname(dirname(__FILE__)) . "/geradas/" . $this->projeto . "/classes";
         if (! file_exists($dir))
@@ -527,14 +527,14 @@ class Geracao{
             }
 
             # monta demais valores a serem substituidos
-            $sPKRequest = join(", ", $aPKRequest);
-            $sTituloAdm = join("\n\t\t\t\t\t", $aTituloAdm);
-            $sCampoAdm = join("\n\t\t\t\t\t", $aCampoAdm);
-            $sCampoFrm = join("\n", $aCampoFrm);
-            $sCampoPK = join("\n", $aCampoPK);
-            $sCampoDetail = join("\n", $aCampoDetail);
+            $sPKRequest = implode(", ", $aPKRequest);
+            $sTituloAdm = implode("\n\t\t\t\t\t", $aTituloAdm);
+            $sCampoAdm = implode("\n\t\t\t\t\t", $aCampoAdm);
+            $sCampoFrm = implode("\n", $aCampoFrm);
+            $sCampoPK = implode("\n", $aCampoPK);
+            $sCampoDetail = implode("\n", $aCampoDetail);
 
-            $sGetAll = (count($aGetAll) > 0) ? join("\n", $aGetAll) : "";
+            $sGetAll = (count($aGetAll) > 0) ? implode("\n", $aGetAll) : "";
 
             # substitui todas os parametros pelas variaveis ja processadas
             $copiaModeloAdm = str_replace('%%NOME_CLASSE%%', $nomeClasse, $copiaModeloAdm);
@@ -715,7 +715,7 @@ class Geracao{
             }
 
             # monta demais valores a serem substituidos
-            $sCampoDetail = join($aCampoDetail, "\n");
+            $sCampoDetail = implode($aCampoDetail, "\n");
 
             # substitui todas os parametros pelas variaveis ja processadas
             # ================ Template Detail ==================
@@ -837,10 +837,10 @@ class Geracao{
             }
 
             # monta demais valores a serem substituidos
-            $sCampoFrm = join($aCampoFrm, "\n");
-            $sCampoPK = join($aCampoPK, "\n");
+            $sCampoFrm = implode($aCampoFrm, "\n");
+            $sCampoPK = implode($aCampoPK, "\n");
 
-            $sGetAll = (count($aGetAll) > 0) ? join($aGetAll, "\n") : "";
+            $sGetAll = (count($aGetAll) > 0) ? implode($aGetAll, "\n") : "";
 
             # substitui todas os parametros pelas variaveis ja processadas
 
@@ -938,9 +938,9 @@ class Geracao{
             }
 
             # monta demais valores a serem substituidos
-            $sPKRequest = join($aPKRequest, ", ");
-            $sTituloAdm = join($aTituloAdm, "\n\t\t\t\t\t");
-            $sCampoAdm = join($aCampoAdm, "\n\t\t\t\t\t");
+            $sPKRequest = implode(", ", $aPKRequest);
+            $sTituloAdm = implode("\n\t\t\t\t\t", $aTituloAdm);
+            $sCampoAdm =  implode("\n\t\t\t\t\t", $aCampoAdm);
 
             # substitui todas os parametros pelas variaveis ja processadas
             $copiaModeloAdm = str_replace('%%NOME_CLASSE%%', $nomeClasse, $copiaModeloAdm);
@@ -1037,9 +1037,9 @@ class Geracao{
             }
 
             # Monta demais valores a serem substituidos
-            $objToReg = join("\n", $objToReg);
-            $objToRegInsert = join("\n", $objToRegInsert);
-            $regToObj = join("\n", $regToObj);
+            $objToReg       = implode("\n", $objToReg);
+            $objToRegInsert = implode("\n", $objToRegInsert);
+            $regToObj       = implode("\n", $regToObj);
 
             # Substitui todas os parametros pelas variaveis ja processadas
 
@@ -1126,16 +1126,16 @@ class Geracao{
                 }
             }
             # =========== Monta demais valores a serem substituidos ========
-            $aCampoInsert = join(",\n\t\t\t\t\t", $aCampoInsert);
-            $aValorInsert = join(",\n\t\t\t\t\t", $aValorInsert);
-            $aCampoUpdate = join(",\n\t\t\t\t\t", $aCampoUpdate);
-            $aChaveWhere = join(" \n\t\t\t\t\tand ", $aChaveWhere);
-            $aChaveWhereSel = join(" \n\t\t\t\t\tand ", $aChaveWhereSel);
-            $aChaveWhereDel = join(" \n\t\t\t\t\tand ", $aChaveWhereDel);
-            $sCampoConsulta = join(" \n\t\t\t\t\tor ", $aCampoConsulta);
-            $aChave = join(",", $aChave);
+            $aCampoInsert = implode(",\n\t\t\t\t\t", $aCampoInsert);
+            $aValorInsert = implode(",\n\t\t\t\t\t", $aValorInsert);
+            $aCampoUpdate = implode(",\n\t\t\t\t\t", $aCampoUpdate);
+            $aChaveWhere = implode(" \n\t\t\t\t\tand ", $aChaveWhere);
+            $aChaveWhereSel = implode(" \n\t\t\t\t\tand ", $aChaveWhereSel);
+            $aChaveWhereDel = implode(" \n\t\t\t\t\tand ", $aChaveWhereDel);
+            $sCampoConsulta = implode(" \n\t\t\t\t\tor ", $aCampoConsulta);
+            $aChave = implode(",", $aChave);
             $aColuna = $this->getCamposSelect((string) $aTabela['name']);
-            $aColuna = join(",\n\t\t\t\t\t", $aColuna);
+            $aColuna = implode(",\n\t\t\t\t\t", $aColuna);
 
             $tabelaJoin = (((string) $aTabela['schema'] != "") ? (string) $aTabela['schema'] . "." . (string) $aTabela['name'] : (string) $aTabela['name']);
 
@@ -1145,7 +1145,7 @@ class Geracao{
             }
 
             if (count($aFKJoin) > 0) {
-                $tabelaJoin .= " \n\t\t\t\tleft join " . join("\n\t\t\t\tleft join ", $aFKJoin);
+                $tabelaJoin .= " \n\t\t\t\tleft join " . implode("\n\t\t\t\tleft join ", $aFKJoin);
             }
 
             $nomeTabela = (((string) $aTabela['schema'] != "") ? (string) $aTabela['schema'] . "." . (string) $aTabela['name'] : (string) $aTabela['name']);
@@ -1260,7 +1260,7 @@ class Geracao{
                 $aItem[] = str_replace('%%NOME_CLASSE%%', ucfirst($this->getCamelMode($aTabela['name'])), $copiaModeloItem);
             }
 
-            $listaItens = join("\n\n", $aItem);
+            $listaItens = implode("\n\n", $aItem);
 
             $copiaModelo = str_replace('%%MODELO_MENU%%', $listaItens, $copiaModelo);
             $copiaModelo = str_replace('%%PROJETO%%', ucfirst($aBanco['name']), $copiaModelo);
@@ -1401,8 +1401,7 @@ class Geracao{
      * @param string[] $array
      * @return string
      */
-    function serializeCamposTabela($array)
-    {
+    function serializeCamposTabela($array){
         $i = 0;
         $sAux = [];
         foreach ($array as $c1 => $aValor) {
@@ -1417,12 +1416,12 @@ class Geracao{
 
         $j = 0;
         foreach ($array as $c => $aValor) {
-            $aux = "'{$c}' => [" . join(", \n", $aValor) . "]";
+            $aux = "'{$c}' => [" . implode(", \n", $aValor) . "]";
             $aux = ($j == 0) ? $aux : "\t\t\t\t$aux";
             $sAux[] = $aux;
             $j ++;
         }
-        return "[" . join(", \n", $sAux) . "]";
+        return "[" . implode(", \n", $sAux) . "]";
     }
 
     /**
@@ -1432,7 +1431,7 @@ class Geracao{
      * @param boolean $desceNivel
      * @return string[]
      */
-    function getAllTabelasJoin($tabela, $desceNivel = true)
+    function getAllTabelasimplode($tabela, $desceNivel = true)
     {
         # Abre arquivo xml para navegacao
         $aBanco = simplexml_load_string($this->xml);
@@ -1458,7 +1457,7 @@ class Geracao{
                             "fk" => (string) $oCampo['fkColumn']
                         );
                         if ($desceNivel) {
-                            $aAux[] = $this->getAllTabelasJoin((string) $oCampo['fkTable'], false);
+                            $aAux[] = $this->getAllTabelasimplode((string) $oCampo['fkTable'], false);
                         }
                     }
                 }
@@ -1520,7 +1519,7 @@ class Geracao{
                 // else
                 // $resultado[] = $this->getArvoreObjeto((string)$oCampo['fkTable'], 0)."\t\t$objetoClasse"."->o$nomeFKClasse = \$o$nomeFKClasse;";
             }
-            return join("\n", $resultado) . "\n";
+            return implode("\n", $resultado) . "\n";
         }
     }
 
@@ -1724,7 +1723,7 @@ class Geracao{
     function getObjetosMontados($tabela, $tipo = "cad")
     {
         $nomeClasse = ucfirst($this->getCamelMode($tabela));
-        $sAtributos = join(",", $this->getAllAtributo($tabela));
+        $sAtributos = implode(",", $this->getAllAtributo($tabela));
         $aTabelaFK = $this->getAllTabelaFK($tabela);
 
         /*
@@ -1758,7 +1757,7 @@ class Geracao{
             $str[] = "\$o$sTabelaFK = new $sTabelaFK($argClasse);";
         }
         $str[] = "\$o$nomeClasse = new $nomeClasse(" . $sAtributos . ");";
-        return ($tipo == "cad") ? join("\n\t\t", $str) : join("\n\t\t\t", $str);
+        return ($tipo == "cad") ? implode("\n\t\t", $str) : implode("\n\t\t\t", $str);
     }
 
     /**
@@ -1786,6 +1785,6 @@ class Geracao{
             $vet[$ch] = ($ch > 0) ? ucfirst($val) : $val;
         }
 
-        return join("", $vet);
+        return implode("", $vet);
     }
 }

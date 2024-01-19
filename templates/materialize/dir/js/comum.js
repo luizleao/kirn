@@ -27,15 +27,6 @@ function print_r(oForm){
                         params[j++] = oForm.elements[i].name + '=' + escape(oForm.elements[i].options[z].value)+'\n';
                 }
             break;
-            /*
-            case "text":
-            case "hidden":
-            case "password":
-            case "textarea":
-            case "select-one":
-                params[j++] = oForm.elements[i].name + '=' + valor;
-            break;
-            */
             default:
                 params[j++] = oForm.elements[i].name + '=' + valor+' xxx\n';
             break;
@@ -63,13 +54,6 @@ function retornaParametros(oForm){
             valor = escape(oForm.elements[i].value);
         }
         switch(oForm.elements[i].type){
-            case "text":
-            case "hidden":
-            case "password":
-            case "textarea":
-            case "select-one":
-                params[j++] = oForm.elements[i].name + '=' + valor;
-            break;
             case "radio":
             case "checkbox":
                 if(oForm.elements[i].checked) 
@@ -81,6 +65,9 @@ function retornaParametros(oForm){
                         params[j++] = oForm.elements[i].name + '=' + escape(oForm.elements[i].options[z].value);
                 }
             break;
+            default:
+                params[j++] = oForm.elements[i].name + '=' + valor;
+            break;
         }
     }
     return params.join('&');
@@ -91,13 +78,6 @@ function retornaObjeto(oForm){
     j = 0;
     for(var i=0; i<oForm.elements.length; i++){
         switch(oForm.elements[i].type){
-            case "text":
-            case "hidden":
-            case "password":
-            case "textarea":
-            case "select-one":
-                params[j++] = "'" + oForm.elements[i].name + "':'" + escape(oForm.elements[i].value) + "'";
-            break;
             case "radio":
             case "checkbox":
                 if(oForm.elements[i].checked) 
@@ -108,6 +88,9 @@ function retornaObjeto(oForm){
                     if(oForm.elements[i].options[z].selected) 
                         params[j++] = "'" + oForm.elements[i].name + "':'" + escape(oForm.elements[i].options[z].value) + "'";
                 }
+            break;
+            default:
+                params[j++] = "'" + oForm.elements[i].name + "':'" + escape(oForm.elements[i].value) + "'";
             break;
         }
     }

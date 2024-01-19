@@ -13,7 +13,7 @@ function print_r(oForm){
         if(/[\+]/.test(oForm.elements[i].value)){
             valor = encodeURIComponent(escape(oForm.elements[i].value));
         }else{
-            valor = escape(oForm.elements[i].value);
+            valor = encodeURI(oForm.elements[i].value);
         }
         switch(oForm.elements[i].type){
             case "radio":
@@ -51,7 +51,7 @@ function retornaParametros(oForm){
         if(/[\+]/.test(oForm.elements[i].value)){
             valor = encodeURIComponent(escape(oForm.elements[i].value));
         }else{
-            valor = escape(oForm.elements[i].value);
+            valor = encodeURI(oForm.elements[i].value);
         }
         switch(oForm.elements[i].type){
             case "radio":
@@ -107,7 +107,7 @@ function retornaObjeto(oForm){
 function validaTecla(event, tipoCampo){
     var tecla;
 
-    tecla       = (navigator.appName.indexOf("Netscape") != -1) ? event.which : event.keyCode;	
+    tecla       = (navigatorID.appName.indexOf("Netscape") != -1) ? event.which : event.keyCode;	
     codigoTecla = String.fromCharCode(tecla); 
 
     // ========== VERIFICANDO O TIPO DE CAMPO =========

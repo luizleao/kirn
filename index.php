@@ -38,7 +38,7 @@ if (isset($_REQUEST['acao'])) {
 <body>
 	<?php include_once("includes/menu.php"); ?>
 	<?php include_once("includes/loading.php"); ?>
-	<main>
+	<main>	
 		<form onsubmit="return false;">
 			<div class="row">
 				<div class="col m6 s12">
@@ -57,16 +57,14 @@ if (isset($_REQUEST['acao'])) {
 									</div>
 									<div class="row">
 										<div class="input-field col s3">
-											<label for="host">Host</label> <input type="text" id="host"
-												name="host" value="" />
+											<input type="text" id="host" name="host" value="" />
+											<label for="host">Host</label> 
 										</div>
 										<div class="input-field col s3">
-											<input type="text" id="login" name="login" value="" /> <label
-												for="login">User</label>
+											<input type="text" id="login" name="login" value="" /> <label for="login">User</label>
 										</div>
 										<div class="input-field col s4">
-											<input type="password" id="senha" name="senha" value="" /> <label
-												for="senha">Password</label>
+											<input type="password" id="senha" name="senha" value="" /> <label for="senha">Password</label>
 										</div>
 										<div class="input-field col s2">
 											<button id="btnConectar" type="submit"
@@ -78,11 +76,11 @@ if (isset($_REQUEST['acao'])) {
 									</div>
 									<div class="row">
 										<div class="input-field col s9">
-											<select name="database" id="database" class=""></select> <label
-												for="database">Database</label>
+											<select name="database" id="database" class=""></select> 
+											<label for="database">Database</label>
 										</div>
 										<div class="input-field col s1">
-											<button id="btnGerarXml" type="submit" class="btn btn-small ">XML</button>
+											<button id="btnGerarXml" type="submit" class="btn btn-small">XML</button>
 										</div>
 									</div>
 								</div>

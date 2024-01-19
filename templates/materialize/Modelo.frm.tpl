@@ -39,7 +39,7 @@ if($oController->msg != "")
                 </div>
             </div>
             <div class="row">
-                <div class="form-actions">
+                <div class="form-actions center-align">
                     <button id="btn<?=$label?>" type="submit" class="btn btn-small tooltipped" data-position="top" data-tooltip="Salvar"><i class="material-icons">save</i> </button>
 					<a class="btn btn-small tooltipped" href="adm%%NOME_CLASSE%%.php" data-position="top" data-tooltip="Voltar"><i class="material-icons">arrow_back</i> </a>
                     %%CHAVE_PRIMARIA%%

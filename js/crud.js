@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var dadosBranco    = {host:"", login:"", senha: ""};   
-    var dadosMysql 	   = {host:"localhost", login:"root", senha:"@1234567890#"};    
+    var dadosMysql 	   = {host:"localhost", login:"root", senha:""}; //@1234567890#    
     var dadosSqlServer = {host:"172.16.107.88", login:"sa", senha:"cgti*2013"};    
     var dadosPostgre   = {host:"localhost", login:"postgres", senha:"postgres"};
     
@@ -107,31 +107,38 @@ $(document).ready(function(){
      * @author luizleao
      */
     $("#btnGerarXml").click(function () {
-        $.ajax({
-            url       : 'index.php?acao=xml',
-            type      : 'post',
-            data      : retornaParametros(document.forms[0]),
-            dataType  : 'html',
-            beforeSend: function(){
-                $('#divLoading').removeClass('hide');
-            },
-            timeout   : tempoTimeout,
-            success   : function(retorno){
-                //print_r(document.forms[0]);
-                $('#divLoading').addClass('hide');
+        console.log($('#database'));
+        if($('#database').val() != null){
+            $.ajax({
+                url       : 'index.php?acao=xml',
+                type      : 'post',
+                data      : retornaParametros(document.forms[0]),
+                dataType  : 'html',
+                beforeSend: function(){
+                    $('#divLoading').removeClass('hide');
+                },
+                timeout   : tempoTimeout,
+                success   : function(retorno){
+                    //print_r(document.forms[0]);
+                    $('#divLoading').addClass('hide');
 
-                if(retorno !== '')
-                    $('#modalResposta').find('.modal-content').html('<img src="img/ico_error.png" /> '+retorno);
-                else
-                    $('#modalResposta').find('.modal-content').html('<img src="img/ico_success.png" /> XML gerado com sucesso');
-                modalResposta.open();
-            },
-            error: function (event, jqXHR, ajaxSettings){
-                $('#divLoading').addClass('hide');
-                $('#modalResposta').find('.modal-content').html('<img src="img/ico_error.png" /> '+event +'-' +jqXHR +'-' +ajaxSettings);
-                modalResposta.open();
-            }
-        });
+                    if(retorno !== '')
+                        $('#modalResposta').find('.modal-content').html('<img src="img/ico_error.png" /> '+retorno);
+                    else
+                        $('#modalResposta').find('.modal-content').html('<img src="img/ico_success.png" /> XML gerado com sucesso');
+                    modalResposta.open();
+                },
+                error: function (event, jqXHR, ajaxSettings){
+                    $('#divLoading').addClass('hide');
+                    $('#modalResposta').find('.modal-content').html('<img src="img/ico_error.png" /> '+event +'-' +jqXHR +'-' +ajaxSettings);
+                    modalResposta.open();
+                }
+            });
+        } else {
+            $('#divLoading').addClass('hide');
+            $('#modalResposta').find('.modal-content').html('<img src="img/ico_alert.png" /> Choose a valid database');
+            modalResposta.open();
+        }
     });
     
     

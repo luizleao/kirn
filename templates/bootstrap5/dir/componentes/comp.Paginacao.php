@@ -10,7 +10,7 @@ for ($i = 1; $i <= $numPags; $i ++) {
 <?php
 }
 ?>
-		<li class="page-item <?=($_REQUEST['pag'] == 1) ? "disabled" : ""?>"><a class="page-link" href="?pag=<?=$_REQUEST['pag']+1?>" rel="next">Próximo
+		<li class="page-item <?=($_REQUEST['pag'] == $numPags) ? "disabled" : ""?>"><a class="page-link" href="?pag=<?=$_REQUEST['pag']+1?>" rel="next">Próximo
 				&gt;</a></li>
 	</ul>
 	<!-- /.pagination -->
